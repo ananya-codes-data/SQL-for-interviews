@@ -1,2 +1,1 @@
-# SQL-for-interviews
-Practicing SQL from ER diagrams to subqueries, CTEs
+# This repo focuses on practicing the complete database workflow
