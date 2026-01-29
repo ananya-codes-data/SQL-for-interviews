@@ -465,3 +465,610 @@ WHERE d.location = 'Delhi';
 
 * Filtering → JOIN
 * Per-row comparison → Subquery
+
+## 🧩 NESTED SUBQUERIES — STEP BY STEP TRAINING
+
+## 🟢 Level 1: Single nested subquery (2 layers)
+
+### Question
+
+Find employees who work in departments located in cities where the average salary is above 60,000.
+
+## Step-by-step thinking:
+
+### Step 1: What’s the deepest info?
+
+We need:
+
+> Cities where avg salary > 60000
+
+So first query:
+
+```sql
+SELECT d.location
+FROM employees e
+JOIN departments d 
+  ON e.department_id = d.department_id
+GROUP BY d.location
+HAVING AVG(e.salary) > 60000;
+```
+
+This gives:
+👉 list of locations
+
+### Step 2: Use that result to get departments
+
+```sql
+SELECT department_id
+FROM departments
+WHERE location IN (
+    -- locations with high avg salary
+)
+```
+
+### Step 3: Use that to get employees
+
+## Final nested query:
+
+```sql
+SELECT *
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM departments
+    WHERE location IN (
+        SELECT d.location
+        FROM employees e
+        JOIN departments d 
+          ON e.department_id = d.department_id
+        GROUP BY d.location
+        HAVING AVG(e.salary) > 60000
+    )
+);
+```
+
+🧠 Layering:
+
+1. location list
+2. department list
+3. employee list
+
+### Question:
+
+👉 Find employees who work in departments located in **Delhi**.
+
+## Step 1: Translate to English
+
+* Find departments in Delhi
+* Find employees in those departments
+
+---
+
+## Step 2: Find departments in Delhi (inner query)
+
+```sql
+SELECT dept_id
+FROM departments
+WHERE location = 'Delhi';
+```
+
+---
+
+## Step 3: Use that result to find employees (outer query)
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM departments
+    WHERE location = 'Delhi'
+);
+```
+
+🧠 Think:
+
+> “Show employees whose dept_id is inside this list.”
+
+## 🟡 Level 2: 3-layer dependency (logical nesting)
+
+### Question:
+
+Find employees working on projects in departments located in cities where **total project budget > 1,000,000**.
+
+## Thinking chain:
+
+### Step 1: Find cities with high project budget
+
+```sql
+SELECT d.location
+FROM projects p
+JOIN employees e ON p.employee_id = e.employee_id
+JOIN departments d ON e.department_id = d.department_id
+GROUP BY d.location
+HAVING SUM(p.project_budget) > 1000000;
+```
+
+👉 cities list
+
+### Step 2: Find departments in those cities
+
+```sql
+SELECT department_id
+FROM departments
+WHERE location IN (cities)
+```
+
+### Step 3: Find employees in those departments
+
+## Final nested query:
+
+```sql
+SELECT *
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM departments
+    WHERE location IN (
+        SELECT d.location
+        FROM projects p
+        JOIN employees e ON p.employee_id = e.employee_id
+        JOIN departments d ON e.department_id = d.department_id
+        GROUP BY d.location
+        HAVING SUM(p.project_budget) > 1000000
+    )
+);
+```
+
+🧠 Layers:
+project → location → department → employee
+
+### Question:
+
+Find employees who work in departments located in **cities in India**.
+
+## Step 1: English breakdown
+
+* Find cities in India
+* Find departments in those cities
+* Find employees in those departments
+
+## Step 2: Start from deepest logic
+
+### 1️⃣ Cities in India
+
+```sql
+SELECT city
+FROM locations
+WHERE country = 'India';
+```
+
+### 2️⃣ Departments in those cities
+
+```sql
+SELECT dept_id
+FROM departments
+WHERE location IN (
+    SELECT city
+    FROM locations
+    WHERE country = 'India'
+);
+```
+
+### 3️⃣ Employees in those departments
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM departments
+    WHERE location IN (
+        SELECT city
+        FROM locations
+        WHERE country = 'India'
+    )
+);
+```
+
+🧠 Mental chain:
+
+```
+India → cities → departments → employees
+```
+
+## 🟠 Level 3: Nested + correlated logic
+
+### Question:
+
+Find employees whose salary is higher than the average salary of departments located in cities where the average project budget is high.
+
+## Thinking:
+
+### Step 1: Cities with high avg project budget
+
+```sql
+SELECT d.location
+FROM projects p
+JOIN employees e ON p.employee_id = e.employee_id
+JOIN departments d ON e.department_id = d.department_id
+GROUP BY d.location
+HAVING AVG(p.project_budget) > 500000;
+```
+
+### Step 2: Departments in those cities
+
+```sql
+SELECT department_id
+FROM departments
+WHERE location IN (cities)
+```
+
+### Step 3: Average salary of those departments
+
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE department_id IN (dept list)
+```
+
+### Step 4: Compare employee salary
+
+## Final query:
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE department_id IN (
+        SELECT department_id
+        FROM departments
+        WHERE location IN (
+            SELECT d.location
+            FROM projects p
+            JOIN employees e ON p.employee_id = e.employee_id
+            JOIN departments d ON e.department_id = d.department_id
+            GROUP BY d.location
+            HAVING AVG(p.project_budget) > 500000
+        )
+    )
+);
+```
+
+🧠 Mental model:
+
+> projects → cities → departments → avg salary → compare employee
+
+## 🔴 Level 4: Correlated nested subqueries (hard mode)
+
+### Question:
+
+Find employees who earn more than their department’s average salary,
+but only for departments located in cities where **total project budget is highest**.
+
+## Step-by-step:
+
+### Step 1: Find city with highest total project budget
+
+```sql
+SELECT d.location
+FROM projects p
+JOIN employees e ON p.employee_id = e.employee_id
+JOIN departments d ON e.department_id = d.department_id
+GROUP BY d.location
+ORDER BY SUM(p.project_budget) DESC
+LIMIT 1;
+```
+
+### Step 2: Departments in that city
+
+```sql
+SELECT department_id
+FROM departments
+WHERE location = (top city)
+```
+
+### Step 3: Employees in those departments who earn more than dept avg (correlated)
+
+## Final query:
+
+```sql
+SELECT *
+FROM employees e1
+WHERE department_id IN (
+    SELECT department_id
+    FROM departments
+    WHERE location = (
+        SELECT d.location
+        FROM projects p
+        JOIN employees e ON p.employee_id = e.employee_id
+        JOIN departments d ON e.department_id = d.department_id
+        GROUP BY d.location
+        ORDER BY SUM(p.project_budget) DESC
+        LIMIT 1
+    )
+)
+AND salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id
+);
+```
+
+🧠 Layers:
+
+* best city
+* departments in best city
+* employees in those departments
+* correlated avg salary
+* compare
+
+## 🧠 How to mentally build nested subqueries
+
+Always ask in this order:
+
+1. **What is the final output?**
+2. **What info is needed just before that?**
+3. **What info is needed before that?**
+4. Keep drilling until base data
+
+You’re basically doing **reverse engineering**.
+
+## 🔁 Practice rule (very powerful)
+
+Write like this in notes:
+
+```
+Final goal: Employees
+Needs: Departments
+Needs: Cities
+Needs: Project budget
+```
+
+Then convert each line into SQL.
+
+## 🟠 LEVEL 5 — Nested with Aggregation Logic
+
+### Question:
+
+Find employees who earn **more than the average salary of employees working in India**.
+
+## Step 1: English logic
+
+* Find employees in India
+* Find their average salary
+* Compare everyone’s salary to that number
+
+## Step 2: Build from inside out
+
+### 1️⃣ Employees in India
+
+```sql
+SELECT e.salary
+FROM employees e
+WHERE e.dept_id IN (
+    SELECT d.dept_id
+    FROM departments d
+    WHERE d.location IN (
+        SELECT city
+        FROM locations
+        WHERE country = 'India'
+    )
+);
+```
+
+### 2️⃣ Average salary of those employees
+
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM departments
+    WHERE location IN (
+        SELECT city
+        FROM locations
+        WHERE country = 'India'
+    )
+);
+```
+
+### 3️⃣ Final query
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+    WHERE dept_id IN (
+        SELECT dept_id
+        FROM departments
+        WHERE location IN (
+            SELECT city
+            FROM locations
+            WHERE country = 'India'
+        )
+    )
+);
+```
+
+🧠 Think:
+
+```
+India employees → average salary → compare
+```
+
+---
+
+## 🔴 LEVEL 6 — Nested + Correlated (Brain Stretch)
+
+### Question:
+
+Find employees who earn more than the **average salary of employees in the same country**.
+
+## Step 1: English logic
+
+For each employee:
+
+* Find their country
+* Find avg salary of employees in that country
+* Compare salary
+
+## Step 2: Identify correlation
+
+Employee’s country depends on **their department → location → country**
+
+## Step 3: SQL
+
+```sql
+SELECT *
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.dept_id IN (
+        SELECT d.dept_id
+        FROM departments d
+        WHERE d.location IN (
+            SELECT l.city
+            FROM locations l
+            WHERE l.country = (
+                SELECT l2.country
+                FROM departments d2
+                JOIN locations l2 ON d2.location = l2.city
+                WHERE d2.dept_id = e1.dept_id
+            )
+        )
+    )
+);
+```
+
+🧠 Mindset:
+
+```
+For THIS employee →
+find THEIR country →
+find avg salary in THAT country →
+compare
+```
+
+## 🧠 HOW TO THINK WHEN NESTING DEEPLY
+
+## Always work INSIDE → OUTSIDE
+
+### Ask repeatedly:
+
+> “What must I know before I can answer this?”
+
+Write the chain like:
+
+```
+Answer A depends on B
+B depends on C
+C depends on D
+```
+
+Then SQL mirrors that structure.
+
+## ⚡ LEVEL 7 — Interview-Level Deep Nesting (Final Boss)
+
+### Question:
+
+Find employees who earn more than the **highest department average salary** among departments located in **India**.
+
+## Step 1: English logic chain
+
+1. Find departments in India
+2. Compute average salary per department
+3. Find highest among those averages
+4. Compare employees salary
+
+## Step 2: SQL step-by-step
+
+### 1️⃣ Departments in India
+
+```sql
+SELECT dept_id
+FROM departments
+WHERE location IN (
+    SELECT city
+    FROM locations
+    WHERE country = 'India'
+);
+```
+
+### 2️⃣ Avg salary per dept (India only)
+
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE dept_id IN ( ... )
+GROUP BY dept_id;
+```
+
+### 3️⃣ Highest avg salary
+
+```sql
+SELECT MAX(avg_sal)
+FROM (
+    SELECT AVG(salary) AS avg_sal
+    FROM employees
+    WHERE dept_id IN (
+        SELECT dept_id
+        FROM departments
+        WHERE location IN (
+            SELECT city
+            FROM locations
+            WHERE country = 'India'
+        )
+    )
+    GROUP BY dept_id
+) t;
+```
+
+### 4️⃣ Final Query
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > (
+    SELECT MAX(avg_sal)
+    FROM (
+        SELECT AVG(salary) AS avg_sal
+        FROM employees
+        WHERE dept_id IN (
+            SELECT dept_id
+            FROM departments
+            WHERE location IN (
+                SELECT city
+                FROM locations
+                WHERE country = 'India'
+            )
+        )
+        GROUP BY dept_id
+    ) t
+);
+```
+
+🧠 Brain translation:
+
+```
+India → departments → avg salary → highest avg → compare employee salary
+```
+
+## 🎯 Practice Drill for You (try mentally)
+
+### Q1
+
+Find employees who work in departments where **the average salary > company average salary**.
+
+### Q2
+
+Find departments that have **no employees earning less than the company average**.
+
+### Q3
+
+Find employees who earn more than **all employees in departments located in Mumbai**.
