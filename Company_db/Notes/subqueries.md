@@ -1,4 +1,6 @@
-# The 4-step thinking framework
+# Subqueries
+
+## The 4-step thinking framework
 
 ## Step 1: Read the question and ignore SQL
 
