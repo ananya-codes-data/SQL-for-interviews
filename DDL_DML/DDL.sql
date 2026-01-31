@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS countries (
 
 -- 12. table creation and auto incremented value
 CREATE TABLE IF NOT EXISTS countries(
-	country_id VARCHAR(2) PRIMARY KEY,
+	country_id SERIAL PRIMARY KEY,
 	country_name VARCHAR(50) NOT NULL,
 	region_id DECIMAL(10,0) NOT NULL
 );
