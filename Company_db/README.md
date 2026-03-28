@@ -19,7 +19,7 @@ Contains notes from specific topics that I find difficult
 9. **Business Metrics & KPIs**
 10. **Performance / Optimization Thinking**
 
-### Subqueries contains subquery questions pattern - wise and difficulty wise.
+### Subqueries contains subquery questions pattern - wise and difficulty wise
 
 ## Resources
 
