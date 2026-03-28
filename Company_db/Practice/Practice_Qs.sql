@@ -1171,90 +1171,386 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 -- 1️⃣5️⃣ Window Functions (Basics) – 20 Questions
 
--- 1. Row number for employees.
+-- 🧩 PART 1: Understanding OVER() (No Partition, No Order)
+/* 1. Add ROW_NUMBER() to the employees table without ORDER BY.
+→ What order do you observe? */
 
 
 
--- 2. Rank salaries.
+/* 2. Add COUNT(*) OVER() to employees.
+→ What value is repeated across all rows? */
 
 
 
--- 3. Dense rank project budgets.
+/* 3. Add AVG(salary) OVER() to each employee.
+→ How is it different from GROUP BY? */
 
 
 
--- 4. Running total revenue.
+/* 4. Add SUM(salary) OVER() and compare with total salary using aggregation. */
 
 
 
--- 5. Salary rank per department.
+/* 5. Add MAX(salary) OVER() and observe how it behaves row-wise. */
 
 
 
--- 6. Order rank per customer.
+
+-- 🧩 PART 2: Adding ORDER BY (Row Sequencing Behavior)
+
+/* 6. Apply ROW_NUMBER() OVER(ORDER BY salary DESC) to employees.
+→ Who gets rank 1? */
 
 
 
--- 7. Project budget ranking.
+/* 7. Change ordering to ORDER BY salary ASC.
+→ What changes? */
 
 
 
--- 8. Customer signup order.
+/* 8. Apply ROW_NUMBER() on orders using ORDER BY order_date.
+→ Does row number reflect time sequence? */
 
 
 
--- 9. Order sequencing.
+/* 9. Add SUM(price) OVER(ORDER BY order_date)
+→ What type of result do you see? */
 
 
 
--- 10. Product sales ranking.
+/* 10. Remove ORDER BY from above query.
+→ What changes in output? */
 
 
 
--- 11. Employee hire order.
+
+-- 🧩 PART 3: PARTITION BY (Group-wise Behavior)
+
+/* 11. Apply ROW_NUMBER() OVER(PARTITION BY dept_id)
+→ What happens inside each department? */
 
 
 
--- 12. Top salary per department.
+/* 12. Add ORDER BY salary DESC within partition.
+→ Who becomes rank 1 per department? */
 
 
 
--- 13. Revenue percent rank.
+/* 13. Apply COUNT(*) OVER(PARTITION BY dept_id)
+→ What does it represent? */
 
 
 
--- 14. Project count running total.
+-- 14. Compare:
+
+/* COUNT(*) OVER(PARTITION BY dept_id)
+vs GROUP BY dept_id
+→ Key difference? */
 
 
 
--- 15. Customer order count running.
+/* 15. Apply AVG(salary) OVER(PARTITION BY dept_id)
+→ What does each row now show? */
+
+
+-- 🧩 PART 4: Partition + Order Together
+
+-- 16. Apply:
+-- ROW_NUMBER() OVER(PARTITION BY dept_id ORDER BY hire_date)
+
+-- → What story does this tell?
 
 
 
--- 16. Salary lag.
+
+-- 17. Apply:
+-- SUM(salary) OVER(PARTITION BY dept_id ORDER BY hire_date)
+
+-- → Is this cumulative within department?
 
 
 
--- 17. Salary lead.
+
+-- 18. Change ORDER BY to salary instead of hire_date.
+-- → How does result change?
 
 
 
--- 18. Revenue difference.
+-- 🧩 PART 5: Frame Awareness (Intro Only)
+-- 19. Apply:
+-- SUM(price) OVER(ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+
+-- → Compare with default behavior.
 
 
 
--- 19. First order per customer.
+
+-- 20. Apply:
+-- AVG(price) OVER(ORDER BY order_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
+
+-- → What rows are included in calculation?
 
 
 
--- 20. Last order per customer.
+
+-- 1️⃣6️⃣ Window Aggregate (20 Questions)
+
+-- (Running totals, moving averages, cumulative metrics)
+
+-- 1. Calculate running total of order revenue ordered by order_date.
+
+
+
+-- 2. Compute cumulative revenue per customer.
+
+
+
+-- 3. Find running average of order price per customer.
+
+
+
+-- 4. Calculate cumulative count of orders per product.
+
+
+
+-- 5. Compute moving average (last 3 orders) per customer.
+
+
+
+-- 6. Calculate running sum of project budgets per employee.
+
+
+
+-- 7. Find cumulative salary expense per department ordered by hire_date.
+
+
+
+-- 8. Compute rolling 7-day revenue.
+
+
+
+-- 9. Calculate running total of orders per country.
+
+
+
+-- 10. Find cumulative distinct customers over time (tricky).
+
+
+
+-- 11. Compute moving average salary per department (last 5 hires).
+
+
+
+-- 12. Calculate cumulative max order price per customer.
+
+
+
+-- 13. Compute running min salary per department.
+
+
+
+-- 14. Calculate rolling 30-day average order value.
+
+
+
+-- 15. Find cumulative revenue contribution % per product.
+
+
+
+-- 16. Compute running total of completed projects per employee.
+
+
+
+-- 17. Calculate moving sum of last 10 orders globally.
+
+
+
+-- 18. Find department-wise cumulative hiring trend.
+
+
+
+-- 19. Compute running variance of order price per customer.
+
+
+
+-- 20. Calculate cumulative revenue and compare with total revenue (running %).
+
+
+
+
+-- 1️⃣7️⃣ Window Ranking (20 Questions)
+
+-- (Ranking, Top-N, percentile logic)
+
+-- 1. Rank employees by salary (highest first).
+
+
+
+-- 2. Dense rank employees within each department.
+
+
+
+-- 3. Find top 3 highest-paid employees per department.
+
+
+
+-- 4. Rank customers by total revenue.
+
+
+
+-- 5. Find top 10 customers overall.
+
+
+
+-- 6. Rank products by total orders.
+
+
+
+-- 7. Identify lowest-performing employees (bottom 5 per department).
+
+
+
+-- 8. Assign percentile rank to customers based on revenue.
+
+
+
+-- 9. Find top 5% customers (high-value segment).
+
+
+
+-- 10. Rank projects by budget within each employee.
+
+
+
+-- 11. Identify second highest salary per department.
+
+
+
+-- 12. Rank orders by price per customer.
+
+
+
+-- 13. Find top-selling product per category.
+
+
+
+-- 14. Assign quartiles to salaries.
+
+
+
+-- 15. Rank departments by total salary expense.
+
+
+
+-- 16. Identify top 2 products per manufacturing city.
+
+
+
+-- 17. Rank employees by performance_rating (tie-aware).
+
+
+
+-- 18. Find customers in top decile revenue bucket.
+
+
+
+-- 19. Rank orders within each day by price.
+
+
+
+-- 20. Compare RANK vs DENSE_RANK vs ROW_NUMBER on same dataset.
+
+
+
+
+-- 1️⃣8️⃣ Window Value Functions (20 Questions)
+
+-- (LAG, LEAD, FIRST_VALUE, LAST_VALUE)
+
+-- 1. Show previous order price using LAG.
+
+
+
+-- 2. Show next order price using LEAD.
+
+
+
+-- 3. Calculate difference between current and previous order price.
+
+
+
+-- 4. Find day-to-day revenue change.
+
+
+
+-- 5. Identify customers whose order value increased compared to last order.
+
+
+
+-- 6. Get first order date per customer using FIRST_VALUE.
+
+
+
+-- 7. Get latest order price per customer using LAST_VALUE.
+
+
+
+-- 8. Calculate salary difference between employees hired consecutively.
+
+
+
+-- 9. Detect orders where price dropped compared to previous order.
+
+
+
+-- 10. Find gap in days between consecutive orders per customer.
+
+
+
+-- 11. Identify project budget increase/decrease trend per employee.
+
+
+
+-- 12. Compare current salary vs department average using window + value.
+
+
+
+-- 13. Find first project assigned to each employee.
+
+
+
+-- 14. Get last completed project per employee.
+
+
+
+-- 15. Identify customers with irregular ordering gaps.
+
+
+
+-- 16. Compute difference between current and next order (lead-based).
+
+
+
+-- 17. Detect salary jumps greater than 50% compared to previous hire.
+
+
+
+-- 18. Identify consecutive duplicate order prices.
+
+
+
+-- 19. Track change in customer tier over time (if historical simulated).
+
+
+
+-- 20. Flag orders where shipping delay increased compared to previous order.
 
 
 
 
 -- 🔴 ADVANCED LEVEL
 
--- 1️⃣6️⃣ Subqueries – 20 Questions
+-- 1️⃣9️⃣ Subqueries – 20 Questions
 
 -- 1. Employees earning above avg salary.
 
@@ -1317,7 +1613,7 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
--- 1️⃣7️⃣ Common Table Expressions (CTEs) – 20 Questions
+-- 2️⃣0️⃣ Common Table Expressions (CTEs) – 20 Questions
 
 -- 1. Clean salary data.
 
@@ -1400,7 +1696,7 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
--- 1️⃣8️⃣ Views – 20 Questions
+-- 2️⃣1️⃣ Views – 20 Questions
 
 -- 1. Create employee_summary view.
 
@@ -1483,7 +1779,7 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
--- 1️⃣9️⃣ CTAS – 20 Questions
+-- 2️⃣2️⃣ CTAS – 20 Questions
 
 -- 1. Create cleaned_employees table.
 
@@ -1566,7 +1862,7 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
--- 2️⃣0️⃣ Temp Tables – 20 Questions
+-- 2️⃣3️⃣ Temp Tables – 20 Questions
 
 -- 1. Temp table for daily revenue.
 
