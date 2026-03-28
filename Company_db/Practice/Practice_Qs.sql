@@ -1187,11 +1187,11 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
-/* 4. Add SUM(salary) OVER() and compare with total salary using aggregation. */
+-- 4. Add SUM(salary) OVER() and compare with total salary using aggregation.
 
 
 
-/* 5. Add MAX(salary) OVER() and observe how it behaves row-wise. */
+-- 5. Add MAX(salary) OVER() and observe how it behaves row-wise.
 
 
 
@@ -1241,9 +1241,9 @@ Questions are grouped **topic‑wise**, ordered from easier to harder within eac
 
 
 
--- 14. Compare:
+/* 14. Compare:
 
-/* COUNT(*) OVER(PARTITION BY dept_id)
+COUNT(*) OVER(PARTITION BY dept_id)
 vs GROUP BY dept_id
 → Key difference? */
 
@@ -1255,40 +1255,41 @@ vs GROUP BY dept_id
 
 -- 🧩 PART 4: Partition + Order Together
 
--- 16. Apply:
--- ROW_NUMBER() OVER(PARTITION BY dept_id ORDER BY hire_date)
+/* 16. Apply:
+ROW_NUMBER() OVER(PARTITION BY dept_id ORDER BY hire_date)
 
--- → What story does this tell?
-
-
-
-
--- 17. Apply:
--- SUM(salary) OVER(PARTITION BY dept_id ORDER BY hire_date)
-
--- → Is this cumulative within department?
+→ What story does this tell? */
 
 
 
 
--- 18. Change ORDER BY to salary instead of hire_date.
--- → How does result change?
+/* 17. Apply:
+SUM(salary) OVER(PARTITION BY dept_id ORDER BY hire_date)
+
+→ Is this cumulative within department? */
+
+
+
+
+/* 18. Change ORDER BY to salary instead of hire_date.
+→ How does result change? */
 
 
 
 -- 🧩 PART 5: Frame Awareness (Intro Only)
--- 19. Apply:
--- SUM(price) OVER(ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
 
--- → Compare with default behavior.
+/* 19. Apply:
+SUM(price) OVER(ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+
+→ Compare with default behavior. */
 
 
 
 
--- 20. Apply:
--- AVG(price) OVER(ORDER BY order_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
+/* 20. Apply:
+AVG(price) OVER(ORDER BY order_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
 
--- → What rows are included in calculation?
+→ What rows are included in calculation? */
 
 
 
@@ -1555,61 +1556,81 @@ vs GROUP BY dept_id
 -- 1. Employees earning above avg salary.
 
 
+
 -- 2. Departments with highest avg salary.
+
 
 
 -- 3. Customers with orders above avg order.
 
 
+
 -- 4. Products with max revenue.
+
 
 
 -- 5. Employees with more projects than avg.
 
 
+
 -- 6. Orders larger than customer avg.
+
 
 
 -- 7. Customers with no orders.
 
 
+
 -- 8. Employees in top‑paying departments.
+
 
 
 -- 9. Products ordered by top customers.
 
 
+
 -- 10. Orders contributing to top 10% revenue.
+
 
 
 -- 11. Projects with budget > department avg.
 
 
+
 -- 12. Customers with highest lifetime value.
+
 
 
 -- 13. Employees hired after department avg date.
 
 
+
 -- 14. Products never ordered.
+
 
 
 -- 15. Orders with price > product avg.
 
 
+
 -- 16. Customers ordering premium products.
+
 
 
 -- 17. Departments with lowest attrition.
 
 
+
 -- 18. Projects longer than avg duration.
+
 
 
 -- 19. Employees with highest performance.
 
 
+
 -- 20. Countries generating max revenue.
+
 
 
 
