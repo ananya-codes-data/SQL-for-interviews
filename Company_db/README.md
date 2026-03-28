@@ -19,6 +19,60 @@ Contains notes from specific topics that I find difficult
 9. **Business Metrics & KPIs**
 10. **Performance / Optimization Thinking**
 
+### Practice_Qs contains SQL questions according to the topics listed below
+
+🟢Beginner Level
+
+1. Query Data (SELECT)
+
+2. DDL Commands
+
+3. DML Commands
+
+🟡Intermediate Level
+
+4. Filtering Data
+
+5. SQL Joins (Basics)
+
+6. SQL Joins (Advanced)
+
+7. Set Operators
+
+8. SQL Functions
+
+9. String Functions
+
+10. Numeric Functions
+
+11. Date and Time Functions
+
+12. NULL Functions
+
+13. Case Statement
+
+14. Aggregate Functions
+
+15. Window Functions Basics
+
+16. Window Aggregate
+
+17. Window Ranking
+
+18. Window Value
+
+🔴Advanced Level
+
+19. Subqueries
+
+20. Common Table Expressions (CTE)
+
+21. Views
+
+22. CTAS
+
+23. Temp Tables
+
 ### Subqueries contains subquery questions pattern - wise and difficulty wise
 
 ## Resources
