@@ -545,8 +545,6 @@ WHERE department_id IN (
 * Find departments in Delhi
 * Find employees in those departments
 
----
-
 ## Step 2: Find departments in Delhi (inner query)
 
 ```sql
@@ -554,8 +552,6 @@ SELECT dept_id
 FROM departments
 WHERE location = 'Delhi';
 ```
-
----
 
 ## Step 3: Use that result to find employees (outer query)
 
@@ -676,7 +672,7 @@ WHERE dept_id IN (
 
 🧠 Mental chain:
 
-```
+```text
 India → cities → departments → employees
 ```
 
@@ -823,7 +819,7 @@ You’re basically doing **reverse engineering**.
 
 Write like this in notes:
 
-```
+```text
 Final goal: Employees
 Needs: Departments
 Needs: Cities
@@ -900,11 +896,9 @@ WHERE salary > (
 
 🧠 Think:
 
-```
+```text
 India employees → average salary → compare
 ```
-
----
 
 ## 🔴 LEVEL 6 — Nested + Correlated (Brain Stretch)
 
@@ -951,7 +945,7 @@ WHERE salary > (
 
 🧠 Mindset:
 
-```
+```text
 For THIS employee →
 find THEIR country →
 find avg salary in THAT country →
@@ -968,7 +962,7 @@ compare
 
 Write the chain like:
 
-```
+```text
 Answer A depends on B
 B depends on C
 C depends on D
@@ -1058,7 +1052,7 @@ WHERE salary > (
 
 🧠 Brain translation:
 
-```
+```text
 India → departments → avg salary → highest avg → compare employee salary
 ```
 
