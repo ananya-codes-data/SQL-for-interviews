@@ -1,33 +1,33 @@
 # ✅ *Core SQL Interview Questions With Answers* 🖥️
 
-1. What is SQL
+1. What is SQL?
 
 - SQL stands for Structured Query Language
 - You use it to read and manage data in relational databases
 - Used in MySQL, PostgreSQL, SQL Server, Oracle
 
-2. What is an RDBMS
+2. What is an RDBMS?
 
 - Relational Database Management System
 - Stores data in tables with rows and columns
 - Uses keys to link tables
 - Example. Customer table linked to Orders table using customer_id
 
-3. What is a table
+3. What is a table?
 
 - Structured storage for data
 - Rows are records
 - Columns are attributes
 - Example. One row equals one customer
 
-4. What is a primary key
+4. What is a primary key?
 
 - Uniquely identifies each row
 - Cannot be NULL
 - No duplicate values
 - Example. user_id in users table
 
-5. What is a foreign key
+5. What is a foreign key?
 
 - Links one table to another
 - Refers to a primary key in another table
@@ -41,31 +41,31 @@
 - One table can have one primary key
 - One table can have multiple foreign keys
 
-7. What is NULL
+7. What is NULL?
 
 - Represents missing or unknown value
 - Not equal to zero or empty string
 - Use IS NULL or IS NOT NULL to check
 
-8. What are constraints
+8. What are constraints?
 
 - Rules applied on columns
 - Maintain data quality
 - Common constraints
-– NOT NULL
-– UNIQUE
-– PRIMARY KEY
-– FOREIGN KEY
-– CHECK
+- NOT NULL
+- UNIQUE
+- PRIMARY KEY
+- FOREIGN KEY
+- CHECK
 
-9. What are data types
+9. What are data types?
 
 - Define type of data stored
 - Common types
-– INT for numbers
-– VARCHAR for text
-– DATE for dates
-– FLOAT or DECIMAL for decimals
+- INT for numbers
+- VARCHAR for text
+- DATE for dates
+- FLOAT or DECIMAL for decimals
 
 10. Interview tip you must remember
 
@@ -73,25 +73,25 @@
 - Speak logic before syntax
 - Keep answers short and direct
 
-11. What is SELECT
+11. What is SELECT?
 
 - Retrieves specific data from tables
 - Choose columns with * for all
 - Example: SELECT name, age FROM users;
 
-12. What does WHERE do
+12. What does WHERE do?
 
 - Filters rows based on conditions
 - Applied after FROM clause
 - Example: SELECT * FROM users WHERE age > 25 [1]
 
-13. What is ORDER BY
+13. What is ORDER BY?
 
 - Sorts result set by column(s)
 - ASC (default) or DESC
 - Example: SELECT * FROM users ORDER BY age DESC;
 
-14. What is GROUP BY
+14. What is GROUP BY?
 
 - Groups rows with same values
 - Used with aggregate functions like COUNT, SUM
@@ -103,26 +103,26 @@
 - HAVING filters groups after GROUP BY
 - WHERE can't use aggregates; HAVING can
 
-16. What is a JOIN
+16. What is a JOIN?
 
 - Combines rows from two or more tables
 - Based on related columns
 - INNER JOIN returns matching rows only
 
-17. Types of JOINs
+17. Types of JOINs?
 
 - INNER JOIN: matching rows
 - LEFT JOIN: all from left + matches from right
 - RIGHT JOIN: all from right + matches from left
 - FULL OUTER JOIN: all from both
 
-18. What are aggregate functions
+18. What are aggregate functions?
 
 - Perform calculations on groups
 - COUNT, SUM, AVG, MIN, MAX
 - Example: SELECT AVG(salary) FROM employees
 
-19. What is a subquery
+19. What is a subquery?
 
 - Query inside another query
 - Used in SELECT, WHERE, FROM
@@ -134,55 +134,55 @@
 - Use simple examples with 2-3 rows
 - Practice on sample datasets like employees/orders
 
-21. What is COUNT function
+21. What is COUNT function?
 
 - Counts number of rows or non-NULL values
 - COUNT(*) counts all rows including NULLs
 - Example: SELECT COUNT(*) FROM orders WHERE status = 'shipped';
 
-22. What is SUM function
+22. What is SUM function?
 
 - Adds up numeric values in column
 - Ignores NULL values
 - Example: SELECT SUM(amount) FROM orders;
 
-23. What is AVG function
+23. What is AVG function?
 
 - Calculates average of numeric column
 - Ignores NULL values
 - Example: SELECT AVG(salary) FROM employees WHERE department = 'IT';
 
-24. What is MIN and MAX
+24. What is MIN and MAX?
 
 - Finds smallest/largest value
 - Works on numbers, dates, strings
 - Example: SELECT MIN(order_date), MAX(order_date) FROM orders;
 
-25. What are window functions
+25. What are window functions?
 
 - Perform calculations across row sets
 - ROW_NUMBER(), RANK(), DENSE_RANK()
 - Example: ROW_NUMBER() OVER (ORDER BY salary DESC);
 
-26. What does DISTINCT do
+26. What does DISTINCT do?
 
 - Removes duplicate rows from result
 - Use in SELECT or with COUNT
 - Example: SELECT DISTINCT department FROM employees;
 
-27. What is LIMIT
+27. What is LIMIT?
 
 - Restricts number of rows returned
 - TOP in SQL Server, ROWNUM in Oracle
 - Example: SELECT * FROM employees ORDER BY salary DESC LIMIT 5;
 
-28. What is OFFSET
+28. What is OFFSET?
 
 - Skips specified number of rows
 - Used with LIMIT for pagination
 - Example: SELECT * FROM employees LIMIT 10 OFFSET 20;
 
-29. What are indexes
+29. What are indexes?
 
 - Speed up data retrieval
 - Like book index for fast lookup
@@ -193,3 +193,308 @@
 - Always mention execution order impact on performance
 - Practice explaining JOIN visuals (Venn diagrams)
 - Know when to use WHERE vs HAVING vs window functions
+
+31. What are SQL Views?
+
+- Virtual tables based on query results
+- Simplify complex queries
+- Example: CREATE VIEW high_earners AS SELECT * FROM employees WHERE salary > 50000;
+
+32. What is a Stored Procedure?
+
+- Pre-compiled SQL code block
+- Reusable, reduces network traffic
+- Example: CALL GetEmployeeReport(1001);
+
+33. What are SQL Triggers?
+
+- Auto-execute on events (INSERT, UPDATE, DELETE)
+- Enforce business rules automatically
+- Example: Trigger to log salary changes;
+
+34. Difference between DELETE and TRUNCATE
+
+- DELETE removes specific rows, logs each
+- TRUNCATE removes all rows, faster, no logging
+- DELETE can use WHERE; TRUNCATE cannot;
+
+35. What is ACID property?
+
+- Atomicity: All or nothing
+- Consistency: Valid state always
+- Isolation: Transactions independent
+- Durability: Committed data persists;
+
+36. What is Normalization?
+
+- Organize data to reduce redundancy
+- 1NF, 2NF, 3NF levels
+- Example: Split customer and address tables;
+
+37. What is Denormalization?
+
+- Add redundancy for read performance
+- Used in data warehouses
+- Trade-off: faster queries vs storage;
+
+38. What are Transactions?
+
+- Group of operations as single unit
+- BEGIN TRANSACTION, COMMIT, ROLLBACK
+- Example: Bank transfer (deduct + credit);
+
+39. What is an Index Scan vs Seek?
+
+- Scan: reads entire index/table
+- Seek: directly finds rows (faster)
+- Use covering indexes for best performance;
+
+40. Interview tip you must remember
+
+- Draw ER diagrams for relationships
+- Always mention when to use views vs temp tables
+- Practice EXPLAIN ANALYZE for query optimization
+
+41. What are UNION and UNION ALL?
+
+- Combines results from multiple SELECTs
+- UNION removes duplicates; UNION ALL keeps them
+- Example: SELECT name FROM customers UNION SELECT name FROM suppliers;
+
+42. What is CASE statement?
+
+- Conditional logic like if-else
+- Multiple WHEN clauses possible
+- Example: SELECT name, CASE WHEN salary > 50000 THEN 'High' ELSE 'Low' END AS level FROM employees;
+
+43. What are CTEs (Common Table Expressions)?
+
+- Temporary result set, readable alternative to subqueries
+- Use WITH clause
+- Example: WITH high_earners AS (SELECT *FROM employees WHERE salary > 50000) SELECT* FROM high_earners;
+
+44. Difference between CTE and Subquery
+
+- CTE reusable within query, more readable
+- Subquery embedded, single-use only
+- CTEs support recursion;
+
+45. What is a Self Join?
+
+- Join table with itself
+- Useful for hierarchical data (manager-employee)
+- Example: SELECT e.name, m.name AS manager FROM employees e JOIN employees m ON e.manager_id = m.id;
+
+46. What is LEFT JOIN vs INNER JOIN?
+
+- INNER: only matching rows
+- LEFT: all left table + matching right (NULLs for no match)
+- Visualize with Venn diagrams;
+
+47. What is a Correlated Subquery?
+
+- Subquery references outer query columns
+- Executes once per outer row (slower)
+- Example: SELECT name FROM employees e WHERE salary > (SELECT AVG(salary) FROM employees WHERE department = e.department);
+
+48. What does EXISTS do?
+
+- Tests if subquery returns rows
+- Faster than IN for large datasets
+- Example: SELECT * FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);
+
+49. What is SQL Injection?
+
+- Attack injecting malicious SQL via input
+- Prevent with parameterized queries/prepared statements
+- Example: Never concatenate user input directly;
+
+50. Interview tip you must remember
+
+- Always explain performance implications first
+- Use EXPLAIN PLAN to analyze queries
+- Practice real datasets (employees, orders, products)
+- Know your DBMS specifics (MySQL vs PostgreSQL)
+
+51. What is INSERT statement?
+
+- Adds new rows to table
+- Specify columns or use defaults
+- Example: INSERT INTO employees (name, salary) VALUES ('Amit', 45000);
+
+52. What is UPDATE statement?
+
+- Modifies existing rows
+- Always use WHERE to avoid updating all rows
+- Example: UPDATE employees SET salary = salary * 1.1 WHERE department = 'IT';
+
+53. What is DELETE statement?
+
+- Removes rows from table
+- WHERE clause critical to avoid data loss
+- Example: DELETE FROM orders WHERE status = 'cancelled';
+
+54. What are DML vs DDL?
+
+- DML: Data Manipulation (INSERT, UPDATE, DELETE, SELECT)
+- DDL: Data Definition (CREATE, ALTER, DROP, TRUNCATE)
+- DML changes data; DDL changes structure;
+
+55. What is a Clustered Index?
+
+- Determines physical order of data in table
+- Only one per table (usually primary key)
+- Faster for range scans and sorted queries;
+
+56. What is a Non-Clustered Index?
+
+- Separate structure pointing to data
+- Multiple allowed per table
+- Good for exact match lookups;
+
+57. What is Query Optimization?
+
+- Finding most efficient execution plan
+- Use EXPLAIN/EXPLAIN ANALYZE
+- Indexes, statistics, rewrite queries;
+
+58. Difference between OLTP and OLAP
+
+- OLTP: transactional (fast writes, small reads)
+- OLAP: analytical (fast reads, complex queries)
+- OLTP normalized; OLAP denormalized;
+
+59. What is a Pivot Table in SQL?
+
+- Transforms rows to columns dynamically
+- Use CASE with aggregates
+- Example: Sales by month as columns;
+
+60. Interview tip you must remember
+
+- Always backup before DDL operations
+- Test UPDATE/DELETE on small datasets first
+- Know index maintenance costs
+- Practice window functions on real data
+
+61. What is RANK() vs DENSE_RANK()?
+
+- RANK() skips numbers after ties (1,2,2,4)
+- DENSE_RANK() no skips (1,2,2,3)
+- Example: RANK() OVER (ORDER BY salary DESC)
+
+62. What is ROW_NUMBER()?
+
+- Assigns sequential numbers to rows
+- Unique even with ties (1,2,3,4)
+- Example: ROW_NUMBER() OVER (ORDER BY name)
+
+63. What is LAG() function?
+
+- Access previous row value
+- Great for calculating differences
+- Example: LAG(salary) OVER (ORDER BY hire_date)
+
+64. What is LEAD() function?
+
+- Access next row value
+- Useful for forecasting trends
+- Example: LEAD(salary) OVER (ORDER BY hire_date)
+
+65. What is PARTITION BY?
+
+- Divides rows into groups within window
+- Resets ranking per partition
+- Example: RANK() OVER (PARTITION BY dept ORDER BY salary)
+
+66. What is recursive CTE?
+
+- CTE that references itself
+- Solves hierarchical queries
+- Example: Employee-manager hierarchy tree
+
+67. What does EXPLAIN do?
+
+- Shows query execution plan
+- Identifies slow operations
+- Use EXPLAIN ANALYZE for timing
+
+68. What is Covering Index?
+
+- Index contains all SELECT columns
+- Avoids table lookup (bookmark lookup)
+- CREATE INDEX idx_cover ON table(col1,col2)
+
+69. What is Composite Index?
+
+- Index on multiple columns
+- Order matters (leftmost first)
+- Good for frequent WHERE combinations
+
+70. Interview tip you must remember
+
+- Draw window function execution flow
+- Practice EXPLAIN on slow queries first
+- Know when indexes hurt performance (small tables, many writes)
+- Always test window functions with sample data
+
+71. What is SQL Deadlock?
+
+- Two transactions block each other
+- Both wait for locks held by other
+- Solution: shorter transactions, proper indexing
+
+72. What are Table Locks vs Row Locks?
+
+- Table lock: entire table blocked
+- Row lock: only affected rows blocked
+- Row locks more granular, better concurrency
+
+73. What is Isolation Level?
+
+- Controls transaction visibility
+- READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE
+- Balance consistency vs performance
+
+74. What is a Temp Table?
+
+- Session-specific table for intermediate results
+- #temp in SQL Server, CREATE TEMP TABLE in PostgreSQL
+- Faster than CTE for complex multi-step queries
+
+75. What is Table Variable?
+
+- Memory-based, scoped to batch
+- @table in SQL Server
+- No statistics, good for small datasets
+
+76. What does COALESCE do?
+
+- Returns first non-NULL value
+- Alternative to ISNULL
+- Example: COALESCE(phone1, phone2, 'No phone')
+
+77. What is NULLIF?
+
+- Returns NULL if equal, else first arg
+- Divides safely: amount/NULLIF(count,0)
+- Prevents divide by zero errors
+
+78. What are PIVOT and UNPIVOT?
+
+- PIVOT: rows to columns
+- UNPIVOT: columns to rows
+- Dynamic crosstabs without CASE statements
+
+79. What is MERGE statement?
+
+- UPSERT operation (update if exists, insert if not)
+- Single statement for insert/update/delete
+- Example: MERGE target USING source ON match_condition
+
+80. Interview tip you must remember
+
+- Always ask about data volume in performance questions
+- Mention transaction isolation for concurrency scenarios
+- Practice deadlock scenarios with 2+ transactions
+- Know your DBMS lock escalation rules
