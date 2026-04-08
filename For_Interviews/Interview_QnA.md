@@ -498,3 +498,126 @@
 - Mention transaction isolation for concurrency scenarios
 - Practice deadlock scenarios with 2+ transactions
 - Know your DBMS lock escalation rules
+
+81. What is Full Outer Join?
+
+- All rows from both tables
+- NULLs where no match exists
+- LEFT + RIGHT JOIN UNION equivalent
+
+82. What is Cross Join?
+
+- Cartesian product (every row x every row)
+- Rarely used intentionally
+- Example: 5 customers x 3 products = 15 rows
+
+83. What are Date Functions?
+
+- DATEADD, DATEDIFF, DATEPART
+- CURRENT_DATE, NOW(), YEAR(), MONTH()
+- Example: DATEDIFF(day, order_date, GETDATE())
+
+84. What is String Functions?
+
+- CONCAT, SUBSTRING, LENGTH, UPPER, LOWER
+- LEFT, RIGHT, TRIM, REPLACE
+- Example: CONCAT(first_name, ' ', last_name)
+
+85. What does LIKE do?
+
+- Pattern matching with % and _
+- % matches any characters, _ matches one
+- Example: name LIKE 'A%' finds all starting with A
+
+86. What are Common Table Indexes?
+
+- Speed up repeated column access
+- INCLUDE columns for covering indexes
+- Avoid SELECT * in WHERE clauses
+
+87. What is Query Hint?
+
+- Force optimizer choices
+- USE INDEX, FORCE INDEX, MAX_ROWS
+- Use sparingly, test performance impact
+
+88. What is Materialized View?
+
+- Physical storage of query result
+- Faster than regular views
+- REFRESH MATERIALIZED VIEW periodically
+
+89. What is Partitioned Table?
+
+- Split large table across files/partitions
+- By date, range, hash, list
+- Improves query pruning performance
+
+90. Interview tip you must remember
+
+- Always qualify columns (table.column)
+- Use table aliases consistently
+- Test edge cases (NULLs, empty tables)
+- Mention data types in function examples
+
+91. What are the 4 Main JOIN Types?
+
+- INNER JOIN: matching rows only
+- LEFT JOIN: all left + matching right (NULLs for no match)
+- RIGHT JOIN: all right + matching left
+- FULL OUTER JOIN: all rows from both tables
+
+92. Difference Between INNER vs LEFT JOIN
+
+- INNER: only where join condition matches
+- LEFT: all left table rows, NULLs when no right match
+- INNER faster, LEFT preserves all source data
+
+93. What is CROSS JOIN?
+
+- Cartesian product (every row × every row)
+- No ON condition needed
+- Rarely used: 100 customers × 5 products = 500 rows
+
+94. What is SELF JOIN?
+
+- Table joined with itself
+- Uses table aliases (e.emp_id = m.emp_id)
+- Perfect for hierarchies (employee-manager)
+
+95. What is Window Function Syntax?
+
+- Function() OVER (PARTITION BY col ORDER BY col ROWS/RANGE frame)
+- PARTITION BY: groups, ORDER BY: sequence
+- ROWS UNBOUNDED PRECEDING default frame
+
+96. ROW_NUMBER() vs RANK() vs DENSE_RANK()
+
+- ROW_NUMBER(): 1,2,3,4 (unique)
+- RANK(): 1,2,2,4 (ties share, skips)
+- DENSE_RANK(): 1,2,2,3 (ties share, no skips)
+
+97. What does PARTITION BY do?
+
+- Creates separate windows within result set
+- Resets numbering/aggregates per partition
+- Like GROUP BY but keeps all detail rows
+
+98. What is LAG() / LEAD() Theory?
+
+- LAG: previous row value, LEAD: next row value
+- Default offset=1, can specify columns
+- Perfect for growth rates, trends
+
+99. What are Aggregate Window Functions?
+
+- SUM(), COUNT(), AVG() OVER() windows
+- Running totals: SUM() OVER (ORDER BY date ROWS UNBOUNDED PRECEDING)
+- Moving averages: AVG() OVER (ROWS 7 PRECEDING)
+
+100. Interview tip you must remember
+
+- Draw Venn diagrams for JOIN questions
+- Always specify PARTITION BY + ORDER BY for windows
+- Test window functions with 5-10 row datasets
+- Execution: Window functions after GROUP BY, before ORDER BY
