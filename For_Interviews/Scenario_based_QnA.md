@@ -151,12 +151,13 @@ You have a table `orders` with duplicate entries:
 
 ```text
 -- Sample data
-id | customer_id | product | order_date
-1  | 101         | Laptop  | 2026-01-15
-2  | 101         | Laptop  | 2026-01-15
-3  | 102         | Phone   | 2026-01-16
-4  | 101         | Tablet  | 2026-01-17
-5  | 102         | Phone   | 2026-01-16
+id | customer_id | product | order_date |
+---|-------------|---------|------------|
+1  | 101         | Laptop  | 2026-01-15 |
+2  | 101         | Laptop  | 2026-01-15 |
+3  | 102         | Phone   | 2026-01-16 |
+4  | 101         | Tablet  | 2026-01-17 |
+5  | 102         | Phone   | 2026-01-16 |
 ```
 
 Remove duplicates while keeping the row with the *smallest `id`* for each `customer_id` + `product` combination.
@@ -164,10 +165,11 @@ Remove duplicates while keeping the row with the *smallest `id`* for each `custo
 *Expected Output:*  
 
 ```text
-id | customer_id | product | order_date
-1  | 101         | Laptop  | 2026-01-15
-3  | 102         | Phone   | 2026-01-16
-4  | 101         | Tablet  | 2026-01-17
+id | customer_id | product | order_date |
+---|-------------|---------|------------|
+1  | 101         | Laptop  | 2026-01-15 |
+3  | 102         | Phone   | 2026-01-16 |
+4  | 101         | Tablet  | 2026-01-17 |
 ```
 
 *SQL Code:*  
@@ -198,15 +200,16 @@ WHERE id IN (
 
 ```text
 *📊 Dataset: employees*
-id| name|department|salary|manager_id
-1 | Aditi |  HR | 30000 | 5
-2 | Rahul | IT | 50000 | 6
-3 | Neha | IT | 60000 | 6
-4 | Aman | Sales | 40000 | 7
-5 | Kiran | HR | 70000 | NULL
-6 | Mohit | IT | 80000 | NULL
-7 | Suresh | Sales | 65000 | NULL
-8 | Pooja | HR | 30000 | 5
+id| name   | department | salary | manager_id |
+--|--------|------------|--------|------------|
+1 | Aditi  |     HR     | 30000  |     5      |
+2 | Rahul  |     IT     | 50000  |     6      |
+3 | Neha   |     IT     | 60000  |     6      |
+4 | Aman   |   Sales    | 40000  |     7      |
+5 | Kiran  |     HR     | 70000  |    NULL    |
+6 | Mohit  |     IT     | 80000  |    NULL    |
+7 | Suresh |   Sales    | 65000  |    NULL    |
+8 | Pooja  |     HR     | 30000  |     5      |
 ```
 
 1. *Find average salary per department*
