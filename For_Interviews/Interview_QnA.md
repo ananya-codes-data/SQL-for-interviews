@@ -621,3 +621,175 @@
 - Always specify PARTITION BY + ORDER BY for windows
 - Test window functions with 5-10 row datasets
 - Execution: Window functions after GROUP BY, before ORDER BY
+
+101. *What is a JOIN?*  
+
+- JOIN combines rows from two or more tables based on a related column.  
+- Common types: `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN`.  
+Example:  
+
+```sql
+SELECT e.name, d.dept_name
+FROM employees e
+JOIN departments d ON e.dept_id = d.id;
+```
+
+102. *What is the difference between INNER JOIN and LEFT JOIN?*  
+
+- `INNER JOIN` returns only matching rows in both tables.  
+- `LEFT JOIN` returns all rows from the left table plus matching rows from the right; unmatched right‑side columns are `NULL`.  
+Example:  
+
+```sql
+SELECT e.name, o.order_amount
+FROM employees e
+LEFT JOIN orders o ON e.id = o.emp_id;
+```
+
+103. *What is a subquery?*  
+
+- A subquery is a `SELECT` inside another query (in `WHERE`, `FROM`, or `SELECT`).  
+- Can be correlated (uses outer‑query columns) or un‑correlated (independent).  
+Example (WHERE):  
+
+```sql
+SELECT * FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+);
+```
+
+104. *What is the difference between correlated and nested (non‑correlated) subquery?*  
+
+- *Correlated*: Inner query references outer‑query columns and runs once per outer row.  
+- *Nested*: Inner query is independent; runs once and its result is reused.  
+Example (correlated):  
+
+```sql
+SELECT e1.name, e1.salary
+FROM employees e1
+WHERE e1.salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.dept_id = e1.dept_id
+);
+```
+
+105. *What is the difference between subquery and JOIN?*  
+
+- *JOIN* is usually faster and more readable for combining tables.  
+- *Subquery* is useful when you need aggregation or logic before joining, or when the join condition is complex.  
+Use joins for simple look‑ups; use subqueries when you need pre‑computed aggregates or filters.
+
+106. *What is a CTE (Common Table Expression)?*  
+
+- CTE is a named temporary result set defined with `WITH` clause.  
+- Improves readability and allows recursion.  
+Example:  
+
+```sql
+WITH high_salaries AS (
+    SELECT *
+    FROM employees
+    WHERE salary > 80000
+)
+SELECT name, salary
+FROM high_salaries
+WHERE dept_id = 101;
+```
+
+107. *What are window functions?*  
+
+- Window functions compute values across a "window" of rows without reducing the row count.  
+- Use `OVER(...)` after an aggregate or ranking function.  
+Example (running total):  
+
+```sql
+SELECT customer_id, order_date, amount,
+       SUM(amount) OVER (
+           PARTITION BY customer_id
+           ORDER BY order_date
+       ) AS running_total
+FROM orders;
+```
+
+108. *What is the difference between GROUP BY and window functions?*  
+
+- `GROUP BY` collapses rows into groups; only grouped/aggregated columns can appear.  
+- Window functions keep all rows and add computed values using `PARTITION BY` and `ORDER BY`.  
+Use `GROUP BY` for final aggregates; use window functions for per‑row analytics (rank, running total, lag/lead).
+
+109. *What are ranking functions: ROW_NUMBER, RANK, DENSE_RANK?*  
+
+- `ROW_NUMBER()`: 1,2,3… no ties.  
+- `RANK()`: skips ranks on ties (1,1,3).  
+- `DENSE_RANK()`: no gaps (1,1,2).  
+Example (top 1 order per customer):  
+
+```sql
+WITH ranked_orders AS (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY customer_id
+               ORDER BY order_date DESC
+           ) AS rn
+    FROM orders
+)
+SELECT * FROM ranked_orders WHERE rn = 1;
+```
+
+110. *What is the difference between UNION and UNION ALL?*  
+
+- `UNION` combines two result sets and removes duplicates.  
+- `UNION ALL` combines and keeps all rows, faster because no deduplication.  
+Both must have same number of columns and compatible data types.  
+
+111. *What is the difference between DISTINCT and GROUP BY?*  
+
+- `DISTINCT` removes duplicate rows from the final result.  
+- `GROUP BY` groups rows for aggregation; often used with `COUNT`, `SUM`, etc.  
+Example:  
+
+```sql
+SELECT dept_id, COUNT(DISTINCT employee_id)
+FROM employees
+GROUP BY dept_id;
+```
+
+112. *How do you handle NULLs in SQL?*  
+
+- Use `IS NULL` / `IS NOT NULL` for comparisons (never `= NULL`).  
+- `COALESCE(expression, default_value)` returns first non‑null value.  
+Example:  
+
+```sql
+SELECT name, COALESCE(email, 'No email') AS email
+FROM customers;
+```
+
+113. *What is an index and how does it help?*  
+
+- An index is a data structure (often B‑tree) that speeds up data retrieval.  
+- Helps queries with `WHERE`, `JOIN`, `ORDER BY`, but can slow down `INSERT`/`UPDATE`/`DELETE`.  
+Typical use: add index on `customer_id` when you often filter by it.
+
+114. *How do you optimize a slow SQL query?*  
+Common techniques:  
+
+- Add appropriate indexes on columns used in `WHERE`, `JOIN`, and `ORDER BY`.  
+- Avoid `SELECT *`; fetch only needed columns.  
+- Prefer `INNER JOIN` over subqueries where possible.  
+- Use `LIMIT` / pagination for large results.  
+- Avoid functions on indexed columns in `WHERE` (e.g., `WHERE YEAR(date_col) = 2023` harms index usage).
+
+115. *What is the basic execution order in SQL?*  
+Interview‑friendly:  
+`FROM` → `WHERE` → `GROUP BY` → `HAVING` → `SELECT` → `ORDER BY` → `LIMIT` / `OFFSET`.  
+Mention this when explaining why you put filters in `WHERE` vs `HAVING`.
+
+*Quick advanced‑level interview advice*  
+
+- For *top‑N / latest‑record* problems, think `ROW_NUMBER()` + `PARTITION BY`.  
+- For *running totals / %‑of‑total*, default to `SUM(...) OVER(...)` window functions instead of self‑joins.  
+- For *complex logic*, use CTEs to break the query into clear steps and talk through each CTE.  
+- Always mention *indexes* and *filtering on indexed columns* when discussing performance.  
