@@ -471,6 +471,50 @@ WHERE d.location = 'Delhi';
 
 ## 🧩 NESTED SUBQUERIES — STEP BY STEP TRAINING
 
+Tables:
+
+* `employees(employee_id, name, department_id, salary)`
+
+* `departments(department_id, department_name, location)`
+
+* `projects(project_id, employee_id, project_budget)`
+
+## 🏢 departments
+
+| dept_id | dept_name   | location  |
+| ------- | ----------- | --------- |
+| 1       | Engineering | Bangalore |
+| 2       | Sales       | Delhi     |
+| 3       | HR          | Mumbai    |
+| 4       | Marketing   | Delhi     |
+| 5       | Finance     | Bangalore |
+
+## 👩‍💼 employees
+
+| emp_id | name    | dept_id | salary | hire_date  |
+| ------ | ------- | ------- | ------ | ---------- |
+| 101    | Alice   | 1       | 90000  | 2020-01-15 |
+| 102    | Bob     | 1       | 60000  | 2021-03-10 |
+| 103    | Charlie | 2       | 50000  | 2019-07-23 |
+| 104    | David   | 2       | 70000  | 2022-02-11 |
+| 105    | Eve     | 3       | 40000  | 2021-11-01 |
+| 106    | Frank   | 4       | 65000  | 2020-09-17 |
+| 107    | Grace   | 5       | 85000  | 2018-05-05 |
+| 108    | Hannah  | 5       | 75000  | 2019-08-19 |
+
+## 📁 projects
+
+| project_id | emp_id | project_budget |
+| ---------- | ------ | -------------- |
+| 1001       | 101    | 200000         |
+| 1002       | 101    | 150000         |
+| 1003       | 102    | 80000          |
+| 1004       | 103    | 50000          |
+| 1005       | 104    | 120000         |
+| 1006       | 106    | 90000          |
+| 1007       | 107    | 300000         |
+| 1008       | 108    | 110000         |
+
 ## 🟢 Level 1: Single nested subquery (2 layers)
 
 ### Question
