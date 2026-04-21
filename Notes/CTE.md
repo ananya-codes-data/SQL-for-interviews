@@ -57,6 +57,78 @@ Break it into steps like:
 - Step 3: Rank / compare
 - Step 4: Final result
 
+The dataset below can be used for solving all the examples and questions given in this file
+
+## 📊 Dataset: E-Commerce + Employees + Events
+
+### 🧩 Customers
+
+| customer_id | customer_name | city      |
+| ----------- | ------------- | --------- |
+| 1           | Alice         | Mumbai    |
+| 2           | Bob           | Delhi     |
+| 3           | Charlie       | Mumbai    |
+| 4           | David         | Bangalore |
+| 5           | Eva           | Delhi     |
+
+### 🧩 Orders
+
+| order_id | customer_id | order_date | amount |
+| -------- | ----------- | ---------- | ------ |
+| 101      | 1           | 2023-01-10 | 2000   |
+| 102      | 1           | 2023-02-15 | 3000   |
+| 103      | 2           | 2023-01-12 | 7000   |
+| 104      | 3           | 2023-03-05 | 1500   |
+| 105      | 4           | 2023-03-20 | 9000   |
+| 106      | 5           | 2023-04-01 | 4000   |
+| 107      | 2           | 2023-04-15 | 2000   |
+| 108      | 3           | 2023-05-01 | 3500   |
+| 109      | 1           | 2023-05-10 | 2500   |
+
+### 🧩 Products
+
+| product_id | product_name | category    | price |
+| ---------- | ------------ | ----------- | ----- |
+| 1          | Laptop       | Electronics | 50000 |
+| 2          | Phone        | Electronics | 20000 |
+| 3          | Shirt        | Clothing    | 2000  |
+| 4          | Shoes        | Clothing    | 3000  |
+
+### 🧩 Order_Items
+
+| order_id | product_id | quantity |
+| -------- | ---------- | -------- |
+| 101      | 1          | 1        |
+| 102      | 2          | 1        |
+| 103      | 1          | 1        |
+| 104      | 3          | 2        |
+| 105      | 1          | 1        |
+| 106      | 4          | 1        |
+| 107      | 2          | 2        |
+| 108      | 3          | 1        |
+| 109      | 4          | 2        |
+
+### 🧩 Employees
+
+| emp_id | emp_name | department | salary |
+| ------ | -------- | ---------- | ------ |
+| 1      | John     | HR         | 50000  |
+| 2      | Jane     | IT         | 80000  |
+| 3      | Mark     | IT         | 75000  |
+| 4      | Sara     | HR         | 60000  |
+| 5      | Paul     | Finance    | 90000  |
+
+### 🧩 Events
+
+| user_id | event       | event_time |
+| ------- | ----------- | ---------- |
+| 1       | signup      | 2023-01-01 |
+| 1       | purchase    | 2023-01-03 |
+| 2       | signup      | 2023-01-05 |
+| 2       | add_to_cart | 2023-01-06 |
+| 2       | purchase    | 2023-01-10 |
+| 3       | signup      | 2023-01-07 |
+
 ## 🔥 Example (Let’s Train Your Brain)
 
 ### Problem:
