@@ -59,6 +59,8 @@ Break it into steps like:
 
 The dataset below can be used for solving all the examples and questions given in this file
 
+## 📊 Dataset: E-Commerce + Employees + Events
+
 ```mermaid
 erDiagram
   customers {
@@ -113,6 +115,162 @@ erDiagram
   employees  ||--o{ employees    : "manages"
   users      ||--o{ events       : "triggers"
 ```
+
+### customers
+
+| customer_id | name | city | email |
+|-------------|------|------|-------|
+| 1 | Ananya Sharma | Mumbai | <ananya@example.com> |
+| 2 | Ravi Kumar | Delhi | <ravi@example.com> |
+| 3 | Priya Nair | Mumbai | <priya@example.com> |
+| 4 | Arjun Mehta | Bangalore | <arjun@example.com> |
+| 5 | Sneha Iyer | Chennai | <sneha@example.com> |
+| 6 | Karan Singh | Delhi | <karan@example.com> |
+| 7 | Deepika Rao | Bangalore | <deepika@example.com> |
+| 8 | Rahul Gupta | Mumbai | <rahul@example.com> |
+| 9 | Meera Pillai | Chennai | <meera@example.com> |
+| 10 | Vikram Joshi | Delhi | <vikram@example.com> |
+| 11 | Pooja Verma | Bangalore | <pooja@example.com> |
+| 12 | Amit Chatterjee | Kolkata | <amit@example.com> |
+| 13 | Nisha Reddy | Kolkata | <nisha@example.com> |
+| 14 | Suresh Patil | Pune | <suresh@example.com> |
+| 15 | Lakshmi Menon | Pune | <lakshmi@example.com> |
+
+### orders
+
+| order_id | customer_id | city | amount | order_date |
+|---|---|---|---|---|
+| 101 | 1 | Mumbai | 3200.00 | 2023-01-15 |
+| 102 | 2 | Delhi | 7500.00 | 2023-02-20 |
+| 103 | 3 | Mumbai | 1500.00 | 2023-03-10 |
+| 104 | 4 | Bangalore | 9800.00 | 2023-04-05 |
+| 105 | 5 | Chennai | 4300.00 | 2022-11-22 |
+| 106 | 6 | Delhi | 6200.00 | 2023-06-18 |
+| 107 | 7 | Bangalore | 11500.00 | 2023-07-01 |
+| 108 | 8 | Mumbai | 8900.00 | 2023-08-14 |
+| 109 | 9 | Chennai | 2100.00 | 2022-09-30 |
+| 110 | 10 | Delhi | 5400.00 | 2023-05-25 |
+| 111 | 1 | Mumbai | 4100.00 | 2023-09-09 |
+| 112 | 2 | Delhi | 3300.00 | 2023-10-03 |
+| 113 | 4 | Bangalore | 7200.00 | 2023-11-11 |
+| 114 | 7 | Bangalore | 6000.00 | 2023-12-01 |
+| 115 | 12 | Kolkata | 2800.00 | 2023-03-22 |
+| 116 | 13 | Kolkata | 9100.00 | 2023-07-19 |
+| 117 | 14 | Pune | 1200.00 | 2023-08-08 |
+| 118 | 15 | Pune | 5600.00 | 2023-09-15 |
+| 119 | 11 | Bangalore | 3900.00 | 2023-10-28 |
+| 120 | 6 | Delhi | 4800.00 | 2023-01-30 |
+
+### products
+
+| product_id | product_name | category | price |
+|---|---|---|---|
+| 1 | Laptop | Electronics | 55000.00 |
+| 2 | Smartphone | Electronics | 22000.00 |
+| 3 | Headphones | Electronics | 3500.00 |
+| 4 | Desk Chair | Furniture | 12000.00 |
+| 5 | Notebook Set | Stationery | 450.00 |
+| 6 | Monitor | Electronics | 18000.00 |
+| 7 | Mechanical Keyboard | Electronics | 4500.00 |
+| 8 | Bookshelf | Furniture | 8000.00 |
+| 9 | Coffee Mug | Kitchen | 350.00 |
+| 10 | Standing Desk | Furniture | 25000.00 |
+
+### order_items
+
+| item_id | order_id | product_id | quantity | unit_price |
+|---|---|---|---|---|
+| 1 | 101 | 3 | 2 | 3500.00 |
+| 2 | 101 | 9 | 5 | 350.00 |
+| 3 | 102 | 1 | 1 | 55000.00 |
+| 4 | 103 | 5 | 3 | 450.00 |
+| 5 | 104 | 2 | 1 | 22000.00 |
+| 6 | 104 | 6 | 1 | 18000.00 |
+| 7 | 105 | 7 | 2 | 4500.00 |
+| 8 | 106 | 4 | 1 | 12000.00 |
+| 9 | 107 | 10 | 1 | 25000.00 |
+| 10 | 108 | 1 | 1 | 55000.00 |
+| 11 | 109 | 5 | 4 | 450.00 |
+| 12 | 110 | 3 | 3 | 3500.00 |
+| 13 | 111 | 9 | 2 | 350.00 |
+| 14 | 112 | 8 | 1 | 8000.00 |
+| 15 | 113 | 6 | 1 | 18000.00 |
+| 16 | 114 | 7 | 1 | 4500.00 |
+| 17 | 115 | 5 | 5 | 450.00 |
+| 18 | 116 | 2 | 1 | 22000.00 |
+| 19 | 117 | 9 | 3 | 350.00 |
+| 20 | 118 | 4 | 1 | 12000.00 |
+
+### employees
+
+> `manager_id` is NULL for department heads (top of hierarchy). Used for the Recursive CTE pattern.
+
+| id | name | department | salary | manager_id |
+|---|---|---|---|---|
+| 1 | Kavya Reddy | Engineering | 95000.00 | NULL |
+| 2 | Aditya Nair | Engineering | 82000.00 | 1 |
+| 3 | Sonal Mehta | Engineering | 74000.00 | 1 |
+| 4 | Rohit Sharma | Engineering | 68000.00 | 2 |
+| 5 | Divya Pillai | Marketing | 71000.00 | NULL |
+| 6 | Aryan Kapoor | Marketing | 63000.00 | 5 |
+| 7 | Tanvi Bose | Marketing | 58000.00 | 5 |
+| 8 | Nikhil Jain | HR | 60000.00 | NULL |
+| 9 | Preethi Rao | HR | 54000.00 | 8 |
+| 10 | Siddharth Das | HR | 49000.00 | 8 |
+| 11 | Manisha Gupta | Finance | 77000.00 | NULL |
+| 12 | Yash Malhotra | Finance | 66000.00 | 11 |
+| 13 | Ritu Verma | Finance | 61000.00 | 11 |
+| 14 | Gaurav Saxena | Engineering | 55000.00 | 3 |
+| 15 | Swati Kulkarni | Marketing | 52000.00 | 6 |
+
+### events
+
+> Intentional edge cases for funnel practice:
+>
+> - user_id 3 → signup only (never purchased)
+> - user_id 5 → add_to_cart happened **before** signup
+> - user_id 6 → signup + cart, **no purchase**
+> - user_id 8 → purchase **without** signup
+
+| event_id | user_id | event | event_time |
+|---|---|---|---|
+| 1 | 1 | signup | 2023-01-01 10:00:00 |
+| 2 | 1 | add_to_cart | 2023-01-02 12:00:00 |
+| 3 | 1 | purchase | 2023-01-03 15:00:00 |
+| 4 | 2 | signup | 2023-01-05 09:00:00 |
+| 5 | 2 | purchase | 2023-01-06 11:00:00 |
+| 6 | 3 | signup | 2023-01-07 08:30:00 |
+| 7 | 4 | signup | 2023-01-10 14:00:00 |
+| 8 | 4 | add_to_cart | 2023-01-11 16:00:00 |
+| 9 | 4 | purchase | 2023-01-12 18:00:00 |
+| 10 | 5 | add_to_cart | 2023-01-13 10:00:00 |
+| 11 | 5 | signup | 2023-01-14 11:00:00 |
+| 12 | 5 | purchase | 2023-01-15 12:00:00 |
+| 13 | 6 | signup | 2023-01-16 09:00:00 |
+| 14 | 6 | add_to_cart | 2023-01-17 10:00:00 |
+| 15 | 7 | signup | 2023-01-18 07:00:00 |
+| 16 | 7 | add_to_cart | 2023-01-19 08:00:00 |
+| 17 | 7 | purchase | 2023-01-20 09:00:00 |
+| 18 | 8 | purchase | 2023-01-21 10:00:00 |
+
+### users
+
+> Intentional duplicate emails for deduplication pattern practice (rows 3, 7, 10).
+
+| id | name | email | created_at |
+|---|---|---|---|
+| 1 | Ananya Sharma | <ananya@example.com> | 2022-01-10 |
+| 2 | Ravi Kumar | <ravi@example.com> | 2022-02-14 |
+| 3 | Ananya Sharma | <ananya@example.com> | 2022-03-01 |
+| 4 | Priya Nair | <priya@example.com> | 2022-04-05 |
+| 5 | Karan Singh | <karan@example.com> | 2022-05-20 |
+| 6 | Deepika Rao | <deepika@example.com> | 2022-06-15 |
+| 7 | Karan Singh | <karan@example.com> | 2022-07-09 |
+| 8 | Meera Pillai | <meera@example.com> | 2022-08-22 |
+| 9 | Rahul Gupta | <rahul@example.com> | 2022-09-11 |
+| 10 | Deepika Rao | <deepika@example.com> | 2022-10-03 |
+| 11 | Vikram Joshi | <vikram@example.com> | 2022-11-30 |
+| 12 | Sneha Iyer | <sneha@example.com> | 2022-12-18 |
 
 ## 🔥 Example (Let’s Train Your Brain)
 
