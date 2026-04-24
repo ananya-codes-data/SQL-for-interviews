@@ -59,6 +59,61 @@ Break it into steps like:
 
 The dataset below can be used for solving all the examples and questions given in this file
 
+```mermaid
+erDiagram
+  customers {
+    int customer_id PK
+    varchar name
+    varchar city
+    varchar email
+  }
+  orders {
+    int order_id PK
+    int customer_id FK
+    varchar city
+    decimal amount
+    date order_date
+  }
+  order_items {
+    int item_id PK
+    int order_id FK
+    int product_id FK
+    int quantity
+    decimal unit_price
+  }
+  products {
+    int product_id PK
+    varchar product_name
+    varchar category
+    decimal price
+  }
+  employees {
+    int id PK
+    varchar name
+    varchar department
+    decimal salary
+    int manager_id FK
+  }
+  events {
+    int event_id PK
+    int user_id FK
+    varchar event
+    datetime event_time
+  }
+  users {
+    int id PK
+    varchar name
+    varchar email
+    date created_at
+  }
+
+  customers  ||--o{ orders      : "places"
+  orders     ||--|{ order_items  : "contains"
+  products   ||--o{ order_items  : "included in"
+  employees  ||--o{ employees    : "manages"
+  users      ||--o{ events       : "triggers"
+```
+
 ## 🔥 Example (Let’s Train Your Brain)
 
 ### Problem:
