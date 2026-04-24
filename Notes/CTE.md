@@ -61,6 +61,7 @@ The dataset below can be used for solving all the examples and questions given i
 
 ## 📊 Dataset: E-Commerce + Employees + Events
 
+[ER Diagram](erd_diagram.png)
 
 ### customers
 
