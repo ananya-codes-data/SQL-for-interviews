@@ -63,7 +63,7 @@ The dataset below can be used for solving all the examples and questions given i
 
 [ER Diagram](erd_diagram.png)
 
-### customers
+### 👥 customers
 
 | customer_id | name | city | email |
 |-------------|------|------|-------|
@@ -83,7 +83,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 14 | Suresh Patil | Pune | <suresh@example.com> |
 | 15 | Lakshmi Menon | Pune | <lakshmi@example.com> |
 
-### orders
+### 🛍️ orders
 
 | order_id | customer_id | city | amount | order_date |
 |---|---|---|---|---|
@@ -108,7 +108,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 119 | 11 | Bangalore | 3900.00 | 2023-10-28 |
 | 120 | 6 | Delhi | 4800.00 | 2023-01-30 |
 
-### products
+### 💻 products
 
 | product_id | product_name | category | price |
 |---|---|---|---|
@@ -123,7 +123,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 9 | Coffee Mug | Kitchen | 350.00 |
 | 10 | Standing Desk | Furniture | 25000.00 |
 
-### order_items
+### 💳 order_items
 
 | item_id | order_id | product_id | quantity | unit_price |
 |---|---|---|---|---|
@@ -148,7 +148,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 19 | 117 | 9 | 3 | 350.00 |
 | 20 | 118 | 4 | 1 | 12000.00 |
 
-### employees
+### 👥 employees
 
 > `manager_id` is NULL for department heads (top of hierarchy). Used for the Recursive CTE pattern.
 
@@ -170,7 +170,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 14 | Gaurav Saxena | Engineering | 55000.00 | 3 |
 | 15 | Swati Kulkarni | Marketing | 52000.00 | 6 |
 
-### events
+### 🌐 events
 
 > Intentional edge cases for funnel practice:
 >
@@ -200,7 +200,7 @@ The dataset below can be used for solving all the examples and questions given i
 | 17 | 7 | purchase | 2023-01-20 09:00:00 |
 | 18 | 8 | purchase | 2023-01-21 10:00:00 |
 
-### users
+### 👥 users
 
 > Intentional duplicate emails for deduplication pattern practice (rows 3, 7, 10).
 
