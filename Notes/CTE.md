@@ -775,6 +775,34 @@ WHERE rnk <= 3;
 
 ## 🧩 PATTERN 3: Event / Funnel (VERY IMPORTANT FOR DATA ANALYST)
 
+### 🧠 What is Funnel Logic?
+
+A **funnel** tracks how users move through steps in a process.
+
+👉 Think of it like stages:
+
+```text
+Signup → Add to Cart → Purchase
+```
+
+At each step, some users drop off.
+
+### 📊 Example (Real Meaning)
+
+Out of 100 users:
+
+- 100 signed up
+- 60 added to cart
+- 30 purchased
+
+👉 This is a **conversion funnel**
+
+### 🧠 In SQL Terms
+
+Funnel =
+
+> “Find users who completed steps in a specific order”
+
 ### 🟢 LEVEL 1 — Simple Step Match
 
 #### Problem:
@@ -848,6 +876,156 @@ JOIN cart c ON s.user_id = c.user_id
 JOIN purchase p ON s.user_id = p.user_id
 WHERE t1 < t2 AND t2 < t3;
 ```
+
+### 🔹 Example 1: Basic Funnel
+
+#### 🎯 Problem:
+
+Users who did:
+**signup → purchase**
+
+#### 🧠 Thinking:
+
+- Get signup time
+- Get purchase time
+- Ensure order
+
+#### 💻 Query:
+
+```sql
+WITH signup AS (
+    SELECT user_id, MIN(event_time) AS signup_time
+    FROM events
+    WHERE event = 'signup'
+    GROUP BY user_id
+),
+purchase AS (
+    SELECT user_id, MIN(event_time) AS purchase_time
+    FROM events
+    WHERE event = 'purchase'
+    GROUP BY user_id
+)
+SELECT s.user_id
+FROM signup s
+JOIN purchase p 
+ON s.user_id = p.user_id
+WHERE p.purchase_time > s.signup_time;
+```
+
+### 🔹 Example 2: 3-Step Funnel (Classic)
+
+#### 🎯 Problem:
+
+Users who completed:
+**signup → add_to_cart → purchase**
+
+#### 💻 Query:
+
+```sql
+WITH signup AS (
+    SELECT user_id, MIN(event_time) AS t1
+    FROM events
+    WHERE event = 'signup'
+    GROUP BY user_id
+),
+cart AS (
+    SELECT user_id, MIN(event_time) AS t2
+    FROM events
+    WHERE event = 'add_to_cart'
+    GROUP BY user_id
+),
+purchase AS (
+    SELECT user_id, MIN(event_time) AS t3
+    FROM events
+    WHERE event = 'purchase'
+    GROUP BY user_id
+)
+SELECT s.user_id
+FROM signup s
+JOIN cart c ON s.user_id = c.user_id
+JOIN purchase p ON s.user_id = p.user_id
+WHERE t1 < t2 AND t2 < t3;
+```
+
+### 🔹 Example 3: Funnel with Time Constraint
+
+#### 🎯 Problem:
+
+Users who purchased within **3 days of signup**
+
+#### 💻 Query (Postgres):
+
+```sql
+WITH signup AS (
+    SELECT user_id, MIN(event_time) AS signup_time
+    FROM events
+    WHERE event = 'signup'
+    GROUP BY user_id
+),
+purchase AS (
+    SELECT user_id, MIN(event_time) AS purchase_time
+    FROM events
+    WHERE event = 'purchase'
+    GROUP BY user_id
+)
+SELECT s.user_id
+FROM signup s
+JOIN purchase p ON s.user_id = p.user_id
+WHERE p.purchase_time <= s.signup_time + INTERVAL '3 days';
+```
+
+### 🔹 Example 4: Funnel Drop-off Count
+
+#### 🎯 Problem:
+
+Count users at each stage
+
+#### 💻 Query:
+
+```sql
+WITH signup AS (
+    SELECT DISTINCT user_id FROM events WHERE event = 'signup'
+),
+cart AS (
+    SELECT DISTINCT user_id FROM events WHERE event = 'add_to_cart'
+),
+purchase AS (
+    SELECT DISTINCT user_id FROM events WHERE event = 'purchase'
+)
+SELECT
+    (SELECT COUNT(*) FROM signup) AS signup_users,
+    (SELECT COUNT(*) FROM cart) AS cart_users,
+    (SELECT COUNT(*) FROM purchase) AS purchase_users;
+```
+
+### 🔹 Example 5: Conversion Rate
+
+#### 🎯 Problem:
+
+% of users who went from signup → purchase
+
+```sql
+WITH signup AS (
+    SELECT DISTINCT user_id FROM events WHERE event = 'signup'
+),
+purchase AS (
+    SELECT DISTINCT user_id FROM events WHERE event = 'purchase'
+)
+SELECT 
+    COUNT(p.user_id) * 1.0 / COUNT(s.user_id) AS conversion_rate
+FROM signup s
+LEFT JOIN purchase p ON s.user_id = p.user_id;
+```
+
+## 🚀 Your Practice (Important)
+
+Try this:
+
+👉 “Users who:
+
+- signed up
+- added to cart within 2 days
+- purchased within 5 days of signup”
 
 ## 🧠 WHAT YOU SHOULD NOTICE
 
