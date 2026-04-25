@@ -154,11 +154,268 @@
 
 
 
+-- 🧩 🟢 LEVEL 1 — Basic Funnel (Entry-Level)
+
+-- These test if you understand **sequence + joins + MIN()**
+
+-- Q1.
+
+-- Find users who:
+-- 👉 signed up and then made a purchase
+
+
+
+-- Q2.
+
+-- Find users who:
+-- 👉 signed up → added to cart → purchased
+
+
+
+-- Q3.
+
+-- Find users who:
+-- 👉 added to cart but never purchased
+
+
+
+-- Q4.
+
+-- Count number of users at each stage:
+-- 👉 signup, add_to_cart, purchase
+
+
+
+-- Q5.
+
+-- Find users who:
+-- 👉 purchased without signing up
+
+
+
+-- 🧩 🟡 LEVEL 2 — Time-Based Funnel
+
+-- Now we add **time constraints (very common)**
+
+
+
+-- Q6.
+
+-- Users who purchased within **3 days of signup**
+
+
+
+-- Q7.
+
+-- Users who added to cart within **1 day of signup**
+
+
+
+-- Q8.
+
+-- Users who:
+-- 👉 signed up → purchased within 7 days → but never added to cart
+
+
+
+-- Q9.
+
+-- Users who completed:
+-- 👉 signup → add_to_cart → purchase
+-- 👉 ALL within 5 days
+
+
+
+-- Q10.
+
+-- Users whose **time between signup and purchase > average time**
+
+
+
+-- 🧩 🟠 LEVEL 3 — Drop-off & Conversion
+
+-- Now we test **analytics thinking**
+
+
+
+-- Q11.
+
+-- Find number of users who:
+
+-- * signed up
+-- * added to cart
+-- * purchased
+
+-- 👉 (single query output)
+
+
+
+-- Q12.
+
+-- Calculate conversion rate:
+-- 👉 signup → purchase
+
+
+
+-- Q13.
+
+-- Calculate drop-off rate between:
+-- 👉 add_to_cart → purchase
+
+
+
+-- Q14.
+
+-- Find % of users who:
+-- 👉 signed up but never purchased
+
+
+
+-- Q15.
+
+-- Find stage with highest drop-off
+
+
+
+-- 🧩 🔴 LEVEL 4 — Order + Sequence Complexity
+
+-- Now things get tricky
+
+
+
+-- Q16.
+
+-- Users who:
+-- 👉 purchased BEFORE adding to cart
+
+
+
+-- Q17.
+
+-- Users who:
+-- 👉 added to cart multiple times before purchase
+
+
+
+-- Q18.
+
+-- Users who:
+-- 👉 signed up → purchased → then added to cart (wrong order)
+
+
+
+-- Q19.
+
+-- Users who:
+-- 👉 completed funnel in correct order BUT had extra events in between
+
+
+
+-- Q20.
+
+-- Users who:
+-- 👉 completed funnel more than once
+
+
+
+-- 🧩 🧨 LEVEL 5 — Advanced (Interview Killer)
+
+-- These combine **CTE + window functions + logic**
+
+
+
+-- Q21.
+
+-- For each user:
+-- 👉 find time taken between each step
+-- (signup → cart → purchase)
+
+
+
+-- Q22.
+
+-- Find average time between:
+-- 👉 signup and purchase across all users
+
+
+
+-- Q23.
+
+-- Find fastest users:
+-- 👉 who completed full funnel in least time
+
+
+
+-- Q24.
+
+-- Find users who:
+-- 👉 skipped add_to_cart but still purchased
+
+
+
+-- Q25.
+
+-- Find users whose:
+-- 👉 purchase is closer to signup than to add_to_cart
+
+
+
+-- 🧩 ☠️ LEVEL 6 — Real Product Analytics Questions
+
+-- These are **actual company-style questions**
+
+
+
+-- Q26.
+
+-- For each day:
+-- 👉 number of users entering each stage of funnel
+
+
+
+-- Q27.
+
+-- Cohort funnel:
+-- 👉 users who signed up in Jan
+-- → how many purchased within 7 days
+
+
+
+-- Q28.
+
+-- Find retention funnel:
+-- 👉 users who signed up → came back next day → purchased
+
+
+
+-- Q29.
+
+-- Find % of users who:
+-- 👉 drop off at each step (full breakdown)
+
+
+
+-- Q30.
+
+-- For each user:
+-- 👉 identify the **first valid funnel completion**
+
+
+
+-- 🧠 How to Approach ANY Funnel Question
+
+-- Always break like this:
+
+-- 1. Identify steps (signup, cart, purchase)
+-- 2. Get FIRST occurrence (MIN)
+-- 3. Join steps
+-- 4. Apply order condition (t1 < t2 < t3)
+-- 5. Add time constraints if needed
+
+
 -- 🧠 How You Should Use This
 
 -- Don't jump randomly ❌
-
-
 
 -- Step-by-step method:
 
