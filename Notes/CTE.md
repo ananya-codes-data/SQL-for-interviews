@@ -953,7 +953,7 @@ WHERE t1 < t2 AND t2 < t3;
 
 Users who purchased within **3 days of signup**
 
-#### 💻 Query (Postgres):
+#### 💻 Query:
 
 ```sql
 WITH signup AS (
@@ -970,8 +970,9 @@ purchase AS (
 )
 SELECT s.user_id
 FROM signup s
-JOIN purchase p ON s.user_id = p.user_id
-WHERE p.purchase_time <= s.signup_time + INTERVAL '3 days';
+JOIN purchase p 
+    ON s.user_id = p.user_id
+WHERE p.purchase_time <= DATEADD(DAY, 3, s.signup_time);
 ```
 
 ### 🔹 Example 4: Funnel Drop-off Count
