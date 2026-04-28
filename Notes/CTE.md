@@ -502,7 +502,7 @@ Hierarchy (tree, org chart)
 **Employee hierarchy**
 
 ```sql
-WITH RECURSIVE emp_hierarchy AS (
+WITH emp_hierarchy AS (
     SELECT id, name, manager_id
     FROM employees
     WHERE manager_id IS NULL
