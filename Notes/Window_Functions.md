@@ -1,8 +1,8 @@
 # Window Functions
 
-This is one of the biggest hurdles in SQL, and it's completely normal. Most people don't struggle with the syntax of window functions—they struggle with recognizing when to use them.
+Most people don't struggle with the syntax of window functions—they struggle with recognizing when to use them.
 
-From our earlier conversations, I know you're learning SQL in PostgreSQL as part of your data science journey. The goal isn't just to memorize ROW_NUMBER() or RANK(), but to develop a way of thinking.
+The goal isn't just to memorize ROW_NUMBER() or RANK(), but to develop a way of thinking.
 
 Here's the mental framework I recommend.
 
@@ -12,7 +12,7 @@ Whenever you read a SQL problem, ask yourself:
 
 > "Do I need to keep every row, or do I need to reduce the rows?"
 
-### If the answer is "Reduce the rows"
+**If the answer is "Reduce the rows"**
 
 Use:
 
@@ -34,7 +34,7 @@ GROUP BY store_id;
 
 The output has one row per store.
 
-### If the answer is "Keep every row"
+**If the answer is "Keep every row"**
 
 Think:
 
@@ -270,6 +270,8 @@ For each question, tell me:
 
 8. Find the top 3 products by sales in each category.
 
+---
+
 # Patterns in Window Functions
 
 ## Pattern 1: Ranking within a group
@@ -380,9 +382,9 @@ Example
 
 | date | sales |
 | ---- | ----- |
-1 Jan 100
-2 Jan 150
-3 Jan 130
+| 1 Jan | 100 |
+| 2 Jan | 150 |
+| 3 Jan | 130 |
 
 Question
 
@@ -435,16 +437,16 @@ Example
 | Date | Sales |
 | ---- | ----- |
 | 1 | 100 |
-2 50
-3 80
+| 2 | 50 |
+| 3 | 80 |
 
 Output
 
 | Date | Running Total |
-
-1 100
-2 150
-3 230
+| ---- | ----- |
+| 1 | 100 |
+| 2 | 150 |
+| 3 | 230 |
 
 Function
 
@@ -464,15 +466,13 @@ Function
 
 `AVG() OVER(ORDER BY date)`
 
----
-
 ## Pattern 7: Compare with group average
 
-Scenario
+### Scenario
 
 Need every row plus department average.
 
-Clues
+### Clues
 
 - Above average
 
@@ -486,13 +486,11 @@ Example
 
 Function
 
-AVG() OVER(PARTITION BY department)
-
----
+`AVG() OVER(PARTITION BY department)`
 
 ## Pattern 8: Percentage Contribution
 
-Scenario
+### Scenario
 
 Each row contributes to a total.
 
@@ -500,27 +498,27 @@ Example
 
 Department salary
 
-Employee Salary
-
-A 20k
-B 30k
-C 50k
+| Employee | Salary |
+| ---- | ----- |
+| A | 20k |
+| B | 30k |
+| C | 50k |
 
 Need
 
+```text
 A = 20%
 B = 30%
 C = 50%
+```
 
 Function
 
-SUM() OVER(PARTITION BY department)
-
----
+`SUM() OVER(PARTITION BY department)`
 
 ## Pattern 9: First or Last Value
 
-Scenario
+### Scenario
 
 - Need first purchase.
 
@@ -530,19 +528,17 @@ Scenario
 
 Functions
 
-- FIRST_VALUE()
+- `FIRST_VALUE()`
 
-- LAST_VALUE()
+- `LAST_VALUE()`
 
 Example
 
 > First salary of every employee.
 
----
-
 ## Pattern 10: Find Duplicates
 
-Scenario
+### Scenario
 
 Need duplicate records.
 
@@ -556,13 +552,11 @@ Think
 
 - Count rows.
 
-COUNT(*) OVER(PARTITION BY email)
-
----
+`COUNT(*) OVER(PARTITION BY email)`
 
 ## Pattern 11: Gap Detection
 
-Scenario
+### Scenario
 
 - Need missing sequence.
 
@@ -573,33 +567,32 @@ Scenario
 Example
 
 Orders
-
+```text
 1
 2
 3
 6
 7
+```
 
 Need to identify missing values.
 
 Usually involves
 
-- LAG()
+- `LAG()`
 
-- LEAD()
-
----
+- `LEAD()`
 
 ## Pattern 12: Consecutive Events (Streaks)
 
-Scenario
+### Scenario
 
 - Customer purchased 5 days continuously.
 
 - Employee attended 10 days consecutively.
 
 Example
-
+```text
 Login
 ------
 1 Jan
@@ -607,20 +600,19 @@ Login
 3 Jan
 6 Jan
 7 Jan
+```
 
 Need streak.
 
 Usually
 
-ROW_NUMBER()
+- `ROW_NUMBER()`
 
-LAG()
-
----
+- `LAG()`
 
 ## Pattern 13: Latest Record
 
-Scenario
+### Scenario
 
 Keep only latest record.
 
@@ -630,9 +622,11 @@ Customer changes address.
 
 Need latest address.
 
+```text
 Customer
 Date
 Address
+```
 
 Think
 
@@ -641,8 +635,6 @@ Think
 - Order by date DESC.
 
 - Row number = 1.
-
----
 
 ## Pattern 14: Remove Duplicates
 
@@ -660,11 +652,9 @@ Think
 
 - Row number = 1.
 
----
-
 ## Pattern 15: Nth Highest
 
-Scenario
+### Scenario
 
 - Second highest salary.
 
@@ -674,17 +664,19 @@ Scenario
 
 Think
 
-Ranking.
+- Ranking.
 
-Filter
+- Filter
 
+```text
 rank = 2
+```
 
 or
 
+```text
 dense_rank = 5
-
----
+```
 
 ## Pattern 16: Window Count
 
@@ -694,36 +686,36 @@ Example
 
 Orders
 
-Customer Order
-
-A 1
-A 2
-A 3
-B 4
+| Customer | Order |
+| ---- | ----- |
+| A | 1 |
+| A | 2 |
+| A | 3 |
+| B | 4 |
 
 Need
 
+```text
 Customer Orders
 
 A -> 3
 A -> 3
 A -> 3
 B -> 1
+```
 
 Use
 
-COUNT(*) OVER(PARTITION BY customer)
-
----
+`COUNT(*) OVER(PARTITION BY customer)`
 
 ## Pattern 17: Maximum or Minimum in Group
 
 > Need every employee along with highest salary in their department.
 
+```sql
 MAX(salary)
 OVER(PARTITION BY department)
-
----
+```
 
 ## Pattern 18: Difference from Maximum
 
@@ -731,14 +723,16 @@ Example
 
 > Employee salary difference from highest salary.
 
+```sql
 MAX(salary)
 OVER(PARTITION BY department)
+```
 
 Then
 
+```text
 max_salary - salary
-
----
+```
 
 ## Pattern 19: Percentile and Quartiles
 
@@ -750,19 +744,17 @@ Example
 
 Functions
 
-- NTILE()
+- `NTILE()`
 
-- PERCENT_RANK()
+- `PERCENT_RANK()`
 
-- CUME_DIST()
-
----
+- `CUME_DIST()`
 
 ## Pattern 20: Bucketing
 
 Need divide customers into 4 equal groups.
 
-NTILE(4)
+`NTILE(4)`
 
 Example
 
@@ -774,8 +766,6 @@ Example
 
 - Premium
 
----
-
 ## Pattern 21: Change Detection
 
 Need to know when value changed.
@@ -784,17 +774,19 @@ Example
 
 > Employee salary history
 
+```text
 50000
 50000
 60000
 60000
 65000
+```
 
 Need rows where salary changed.
 
 Think
 
-LAG(salary)
+`LAG(salary)`
 
 Compare.
 
@@ -810,35 +802,31 @@ Example
 
 Think
 
-- ROW_NUMBER()
+`ROW_NUMBER()`
 
-- Filter
+Filter
 
-- row_number = 1
-
----
+`row_number = 1`
 
 ## Pattern 23: Sessionization
 
 Example
 
-Website clicks
+- Website clicks
 
-If inactivity >30 minutes
+- If inactivity >30 minutes
 
-Start new session.
+- Start new session.
 
 Uses
 
-LAG()
+- `LAG()`
 
-Time difference
+- Time difference
 
-Running SUM()
+- Running `SUM()`
 
 Very common in analytics.
-
----
 
 ## Pattern 24: Running Balance
 
@@ -846,21 +834,23 @@ Example
 
 Bank transactions
 
+```text
 +500
 -100
 +300
+```
 
 Need
 
+```text
 500
 400
 700
+```
 
-Use cumulative SUM().
+Use cumulative `SUM()`
 
----
-
-## 34. Pattern-recognition cheat sheet
+## Pattern-recognition cheat sheet
 
 | If the question says... | Think... | Function(s) |
 | ----------------------- | -------- | ----------- |
@@ -881,23 +871,23 @@ Use cumulative SUM().
 
 # One pattern at a time, with increasing complexity
 
-Level 1 – Understand OVER()
+## Level 1 – Understand `OVER()`
 
-Suppose we have an employees table.
+Suppose we have an `employees` table.
 
-emp_id name dept salary
+| emp_id | name | dept | salary |
+| --- | --- | --- | --- |
+| 1 | Alice | HR | 40000 |
+| 2 | Bob | HR | 50000 |
+| 3 | Charlie | HR | 45000 |
+| 4 | David | IT | 70000 |
+| 5 | Emma | IT | 80000 |
 
-1 Alice HR 40000
-2 Bob HR 50000
-3 Charlie HR 45000
-4 David IT 70000
-5 Emma IT 80000
-
-Question 1
+**Question 1**
 
 > Show every employee along with the company's average salary.
 
-Step 1: What is the question asking?
+**Step 1: What is the question asking?**
 
 Do we want one row?
 
@@ -905,25 +895,27 @@ No.
 
 We want every employee.
 
-So NOT GROUP BY.
+So **NOT** `GROUP BY`
 
-Step 2
+**Step 2**
 
 Need average salary.
 
+```sql
 AVG(salary) OVER ()
+```
 
 Output
 
-Employee Salary Company Avg
+| Employee | Salary | Company Avg |
+| --- | --- | --- |
+| Alice | 40000 | 57000 |
+| Bob | 50000 | 57000 |
+| Charlie | 45000 | 57000 |
+| David | 70000 | 57000 |
+| Emma | 80000 | 57000 |
 
-Alice 40000 57000
-Bob 50000 57000
-Charlie 45000 57000
-David 70000 57000
-Emma 80000 57000
-
-Level 2 – PARTITION BY
+## Level 2 – `PARTITION BY`
 
 Question
 
@@ -937,18 +929,20 @@ Department.
 
 So partition.
 
+```sql
 AVG(salary)
 OVER(PARTITION BY dept)
+```
 
 Output
 
-Employee Dept Salary Dept Avg
-
-Alice HR 40000 45000
-Bob HR 50000 45000
-Charlie HR 45000 45000
-David IT 70000 75000
-Emma IT 80000 75000
+| Employee | Dept | Salary | Dept Avg |
+| --- | --- | --- | --- |
+| Alice | HR | 40000 | 45000 |
+| Bob | HR | 50000 | 45000 |
+| Charlie | HR | 45000 | 45000 |
+| David | IT | 70000 | 75000 |
+| Emma | IT | 80000 | 75000 |
 
 Notice:
 
@@ -956,7 +950,7 @@ HR employees only "see" HR.
 
 IT employees only "see" IT.
 
-Level 3 – Ranking
+## Level 3 – Ranking
 
 Question
 
@@ -976,30 +970,32 @@ Need position.
 
 So ranking.
 
+```sql
 ROW_NUMBER()
 OVER(
 PARTITION BY dept
 ORDER BY salary DESC
 )
+```
 
 Result
 
 HR
 
-Employee Salary Row Number
-
-Bob 50000 1
-Charlie 45000 2
-Alice 40000 3
+| Employee | Salary | Row Number |
+| -------- | ------ | ---------- |
+| Bob | 50000 | 1 |
+| Charlie | 45000 | 2 |
+| Alice | 40000 | 3 |
 
 IT
 
-Employee Salary Row Number
+| Employee | Salary | Row Number |
+| -------- | ------ | ---------- |
+| Emma | 80000 | 1 |
+| David | 70000 | 2 |
 
-Emma 80000 1
-David 70000 2
-
-Level 4 – Filtering after ranking
+## Level 4 – Filtering after ranking
 
 Question
 
@@ -1007,7 +1003,7 @@ Question
 
 First calculate
 
-ROW_NUMBER()
+`ROW_NUMBER()`
 
 Then filter.
 
@@ -1031,20 +1027,22 @@ Notice
 
 You cannot directly write
 
+```sql
 WHERE ROW_NUMBER()...
+```
 
-because WHERE executes before window functions.
+because `WHERE` executes before window functions.
 
-Level 5 – Running Total
+## Level 5 – Running Total
 
 Table
 
-Date Sales
-
-Jan1 100
-Jan2 50
-Jan3 70
-Jan4 80
+| Date | Sales |
+| ---- | ----- |
+| Jan1 | 100 |
+| Jan2 | 50 |
+| Jan3 | 70 |
+| Jan4 | 80 |
 
 Question
 
@@ -1056,58 +1054,65 @@ Current row needs previous rows.
 
 Need order.
 
+```sql
 SUM(sales)
 OVER(
 ORDER BY date
 )
+```
 
 Result
 
-Date Running Total
+| Date | Running Total |
+| ---- | ----- |
+| Jan1 | 100 |
+| Jan2 | 150 |
+| Jan3 | 220 |
+| Jan4 | 300 |
 
-Jan1 100
-Jan2 150
-Jan3 220
-Jan4 300
-
-Level 6 – Previous Row
+## Level 6 – Previous Row
 
 Question
 
-Difference between today's sales and yesterday's.
+> Difference between today's sales and yesterday's.
 
 Need previous row.
 
+```sql
 LAG(sales)
 OVER(
 ORDER BY date
 )
+```
 
 Output
 
-Date Sales Yesterday
-
-Jan1 100 NULL
-Jan2 50 100
-Jan3 70 50
-Jan4 80 70
+| Date | Sales | Yesterday |
+| ---- | ----- | ----- |
+| Jan1 | 100 | NULL |
+| Jan2 | 50 | 100 |
+| Jan3 | 70 | 50 |
+| Jan4 | 80 | 70 |
 
 Now calculate
 
+```sql
 sales -
 LAG(sales)
 OVER(ORDER BY date)
+```
 
-Level 7 – Two Window Functions Together
+## Level 7 – Two Window Functions Together
 
 Question
 
 Show
 
-Department average
+- Department average
 
-Department maximum
+- Department maximum
 
+```sql
 SELECT
 employee,
 salary,
@@ -1119,25 +1124,28 @@ MAX(salary)
 OVER(PARTITION BY dept)
 
 FROM employees;
+```
 
 Multiple window functions can coexist.
 
-Level 8 – Nested Thinking
+## Level 8 – Nested Thinking
 
 Question
 
-Employees earning above department average.
+> Employees earning above department average.
 
 Think.
 
-Need average.
+- Need average.
 
-Need comparison.
+- Need comparison.
 
 First
 
+```sql
 AVG()
 OVER(PARTITION BY dept)
+```
 
 Now compare.
 
@@ -1163,108 +1171,122 @@ The window function is inside.
 
 Filtering happens outside.
 
-Level 9 – Top 2 Employees
+## Level 9 – Top 2 Employees
 
 Question
 
-Return top 2 employees from each department.
+> Return top 2 employees from each department.
 
 First
 
 Rank.
 
-ROW_NUMBER()
+`ROW_NUMBER()`
 
 Then
 
 Filter
 
+```text
 WHERE rn<=2
+```
 
-Level 10 – Multiple Partitions
+## Level 10 – Multiple Partitions
 
 Suppose
 
-Region Dept Employee Salary
-
-East HR A 50
-East HR B 40
-East IT C 90
-West HR D 55
+| Region | Dept | Employee | Salary |
+| ------ | ---- | -------- | ------ |
+| East | HR | A | 50 |
+| East | HR | B | 40 |
+| East | IT | C | 90 |
+| West | HR | D | 55 |
 
 Question
 
-Highest salary within each region and department.
+> Highest salary within each region and department.
 
 Partition becomes
 
+```sql
 PARTITION BY region, dept
+```
 
 Now each partition is
 
+```text
 East HR
 
 East IT
 
 West HR
+```
 
-Level 11 – Multiple Ordering
+## Level 11 – Multiple Ordering
 
 Question
 
-Rank by salary.
+> Rank by salary.
+>
+> If salary ties,
+>
+> Use age.
 
-If salary ties,
-
-Use age.
-
+```sql
 ORDER BY
 salary DESC,
 age ASC
+```
 
 Now ties are broken.
 
-Level 12 – A Real Interview Question
+## Level 12 – A Real Interview Question
 
 Tables
 
 Orders
 
-customer date amount
-
-A 1 Jan 100
-A 5 Jan 200
-A 10 Jan 150
-B 3 Jan 50
-B 9 Jan 90
+| customer | date | amount |
+| -------- | ---- | ------ |
+| A | 1 Jan | 100 |
+| A | 5 Jan | 200 |
+| A | 10 Jan | 150 |
+| B | 3 Jan | 50 |
+| B | 9 Jan | 90 |
 
 Question
 
-Find each customer's second purchase.
+> Find each customer's second purchase.
 
 Think.
 
-Each customer separately.
+- Each customer separately.
 
-Need order.
+- Need order.
 
-Need ranking.
+- Need ranking.
 
 Partition
 
+```text
 customer
+```
 
 Order
 
+```text
 date
+```
 
 Filter
 
+```text
 rn=2
+```
 
-Level 13 – Harder Question
+## Level 13 – Harder Question
 
-Find customers whose latest purchase is greater than their average purchase.
+> Find customers whose latest purchase is greater than their average purchase.
 
 Steps
 
@@ -1276,65 +1298,79 @@ Steps
 
 Need
 
+```sql
 AVG()
 
 ROW_NUMBER()
+```
 
 inside one CTE.
 
 Then filter outside.
 
-Level 14 – Even Harder
+## Level 14 – Even Harder
 
 Orders
 
-Customer Date Amount
-
-A 1 100
-A 2 120
-A 3 80
-A 4 150
+| Customer | Date | Amount |
+| -------- | ---- | ------ |
+| A | 1 | 100 |
+| A | 2 | 120 |
+| A | 3 | 80 |
+| A | 4 | 150 |
 
 Question
 
-For every order
-
-Show
-
-Current order
-
-Previous order
-
-Running total
-
-Customer average
+> For every order,
+> Show
+>
+> - Current order
+> - Previous order
+> - Running total
+> - Customer average
 
 One query.
 
 You'll need
 
+```sql
 LAG()
 
 SUM()
 
 AVG()
+```
 
 All together.
 
-Level 15 – Interview-Level Challenge
+## Level 15 – Interview-Level Challenge
 
 Imagine this table:
 
-customer date amount
+| Customer | Date | Amount |
+| -------- | ---- | ------ |
+| A | Jan1 | 100 |
+| A | Jan5 | 200 |
+| A | Jan10 | 50 |
+| A | Jan12 | 250 |
+| B | Jan2 | 500 |
+| B | Jan8 | 600 |
 
-```text
-A Jan1 100
-A Jan5 200
-A Jan10 50
-A Jan12 250
-B Jan2 500
-B Jan8 600
-```
+**Question:**
+
+Find customers whose latest purchase is greater than the average of all their previous purchases.
+
+To solve this, you need to think in stages:
+
+1. Rank purchases by date (latest = `ROW_NUMBER()` = 1 when ordered descending).
+
+2. Calculate the average of previous purchases (this requires excluding the latest row).
+
+3. Compare the latest purchase to that average.
+
+4. Return only customers where the latest purchase is greater.
+
+This kind of problem combines ranking, aggregation, and filtering, and is very common in SQL interviews.
 
 # Window-function patterns
 
@@ -1427,12 +1463,11 @@ RANK() OVER (
 
 Ties share a rank and gaps can appear:
 
-```text
-salary   rank
-80000      1
-80000      1
-70000      3
-```
+| salary   | rank |
+| -------- | ---- |
+| 80000    | 1    |
+| 80000    | 1    |
+| 70000    | 3    |
 
 ### `DENSE_RANK()`
 
@@ -1445,12 +1480,11 @@ DENSE_RANK() OVER (
 
 Ties share a rank but there are no gaps:
 
-```text
-salary   dense_rank
-80000       1
-80000       1
-70000       2
-```
+| salary   | dense_rank |
+| -------- | ---------- |
+| 80000    |      1     |
+| 80000    |      1     |
+| 70000    |      2     |
 
 ### Decision rule
 
@@ -1622,7 +1656,9 @@ FROM sales;
 
 ## 13. Percentage contribution
 
-Question: What percentage of department salary does each employee earn?
+Question:
+
+> What percentage of department salary does each employee earn?
 
 ```sql
 SELECT
@@ -1942,7 +1978,9 @@ FROM orders;
 
 ## 28. Multi-level partition
 
-Question: Highest salary in each region + department.
+Question:
+
+> Highest salary in each region + department.
 
 ```sql
 MAX(salary) OVER (
@@ -2003,7 +2041,9 @@ This is the beginning of the **Gaps and Islands** pattern.
 
 ## 32. JOIN + window function
 
-Question: Highest-spending customer in every city.
+Question:
+
+> Highest-spending customer in every city.
 
 ```sql
 WITH customer_sales AS (
@@ -2129,22 +2169,6 @@ Pattern:
 | Consecutive events | `ROW_NUMBER()` + gaps/islands |
 | Monthly top product | `GROUP BY` → ranking |
 | Monthly growth | `GROUP BY` → `LAG()` |
-
-**Question:**
-
-Find customers whose latest purchase is greater than the average of all their previous purchases.
-
-To solve this, you need to think in stages:
-
-1. Rank purchases by date (latest = `ROW_NUMBER()` = 1 when ordered descending).
-
-2. Calculate the average of previous purchases (this requires excluding the latest row).
-
-3. Compare the latest purchase to that average.
-
-4. Return only customers where the latest purchase is greater.
-
-This kind of problem combines ranking, aggregation, and filtering, and is very common in SQL interviews.
 
 # Learning Progression
 
