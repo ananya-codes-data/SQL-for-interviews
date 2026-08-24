@@ -1,0 +1,598 @@
+/*
+AdventureWorks SQL Practice Roadmap
+~450 questions | No solutions
+SQL Server / T-SQL
+*/
+
+-- ============================================================
+-- LEVEL 1: QUERY DATA, DDL, DML, FILTERING
+-- ============================================================
+
+-- 1. Query Data (SELECT)
+-- Easy
+-- Q1. Display all columns from Production.Product.
+-- Q2. Display ProductID, Name, ProductNumber, and ListPrice.
+-- Q3. Display all columns from Sales.Customer.
+-- Q4. Display the first 20 products.
+-- Q5. Display the first 20 customers ordered by CustomerID.
+-- Q6. Display unique product colors.
+-- Q7. Display unique product sizes.
+-- Q8. Display unique customer account numbers.
+-- Q9. Display employee first name, last name, job title, and hire date.
+-- Q10. Display SalesOrderID, OrderDate, CustomerID, and SalesPersonID.
+-- Medium
+-- Q11. Display products with meaningful column aliases.
+-- Q12. Display ProductID, Name, and ListPrice increased by 18%.
+-- Q13. Display product name and a 10%-discounted price.
+-- Q14. Display order details with calculated line quantity.
+-- Q15. Display product ID and calculated inventory value.
+-- Q16. Display sales orders with calculated gross order value.
+-- Q17. Display employee full name as one column.
+-- Q18. Display product name, ListPrice, StandardCost, and markup.
+-- Q19. Display order details with line-item revenue.
+-- Q20. Display product name, price, tax-adjusted price, and discounted price.
+
+-- 2. DDL Commands
+-- Q21. Create a PracticeCustomers table.
+-- Q22. Create a table containing customer ID, name, email, and registration date.
+-- Q23. Add a phone number column.
+-- Q24. Rename a column.
+-- Q25. Remove a column.
+-- Q26. Change a column's data type.
+-- Q27. Create a primary key.
+-- Q28. Create a foreign key.
+-- Q29. Create a product category table with a primary key.
+-- Q30. Create a sales table with appropriate constraints.
+-- Q31. Add a CHECK constraint preventing negative prices.
+-- Q32. Add a DEFAULT constraint for a status.
+-- Q33. Add a UNIQUE constraint on email.
+-- Q34. Create a table with an IDENTITY column.
+-- Q35. Design customers, orders, and order-details tables.
+-- Q36. Add all appropriate PK/FK relationships.
+-- Q37. Add constraints preventing invalid quantities.
+-- Q38. Modify an existing table without losing data.
+-- Q39. Drop a table while considering dependencies.
+-- Q40. Design a normalized product-review schema.
+
+-- 3. DML Commands
+-- Q41. Insert one customer.
+-- Q42. Insert five customers.
+-- Q43. Update a customer's email.
+-- Q44. Increase product prices by 5%.
+-- Q45. Delete a specific practice customer.
+-- Q46. Delete records satisfying a condition.
+-- Q47. Insert records using SELECT.
+-- Q48. Update multiple products using a condition.
+-- Q49. Update products belonging to a category.
+-- Q50. Delete customers who never placed an order.
+-- Q51. Insert missing records from one table into another.
+-- Q52. Update product prices based on category.
+-- Q53. Increase salaries differently by job title.
+-- Q54. Delete duplicates while retaining one record.
+-- Q55. Perform an UPDATE using a joined table.
+-- Q56. Perform a DELETE using a joined table.
+-- Q57. Perform a multi-step DML operation inside a transaction.
+
+-- 4. Filtering Data
+-- Q58. Find products costing more than $100.
+-- Q59. Find products costing between $50 and $200.
+-- Q60. Find products with a specific color.
+-- Q61. Find products that are not black.
+-- Q62. Find customers from a particular territory.
+-- Q63. Find employees hired after a specific date.
+-- Q64. Find orders placed in 2013.
+-- Q65. Find products with NULL color.
+-- Q66. Find products above $500 in a selected category.
+-- Q67. Find products meeting either of two conditions.
+-- Q68. Find customers from a list of countries.
+-- Q69. Find orders within a date range.
+-- Q70. Find products outside a price range.
+-- Q71. Find customers whose names begin with a selected letter.
+-- Q72. Find products whose names contain a selected word.
+-- Q73. Find orders with subtotal above a threshold.
+-- Q74. Find customers who ordered during one period but not another.
+-- Q75. Find products satisfying multiple business conditions.
+-- Q76. Find employees hired before their managers.
+-- Q77. Find customers who purchased from a specific category.
+-- Q78. Find products satisfying either price or inventory conditions, but not both.
+
+-- ============================================================
+-- LEVEL 2: FUNCTIONS AND AGGREGATION
+-- ============================================================
+
+-- 5. SQL Functions
+-- Q79. Convert employee names to uppercase.
+-- Q80. Convert employee names to lowercase.
+-- Q81. Calculate product-name lengths.
+-- Q82. Round product prices.
+-- Q83. Calculate absolute price differences.
+-- Q84. Extract order years.
+-- Q85. Replace NULL values with defaults.
+-- Q86. Calculate product markup percentage.
+-- Q87. Calculate average order value.
+-- Q88. Calculate employee tenure.
+-- Q89. Calculate days between order and shipment.
+-- Q90. Calculate customer age from birth date.
+-- Q91. Calculate sales tax.
+-- Q92. Calculate profit per order detail.
+
+-- 6. String Functions
+-- Q93. Display employee full names.
+-- Q94. Find product-name lengths.
+-- Q95. Convert names to uppercase.
+-- Q96. Convert names to lowercase.
+-- Q97. Extract the first three characters of product numbers.
+-- Q98. Remove leading/trailing spaces.
+-- Q99. Extract first and last names separately.
+-- Q100. Extract an email domain.
+-- Q101. Find products containing "Mountain".
+-- Q102. Replace spaces in product names with hyphens.
+-- Q103. Extract numeric portions from product numbers.
+-- Q104. Concatenate address components.
+-- Q105. Identify duplicate-looking customer names after normalization.
+-- Q106. Standardize customer names.
+-- Q107. Extract phone area codes.
+-- Q108. Identify product numbers sharing prefixes.
+-- Q109. Parse a composite product code.
+-- Q110. Find customers whose normalized names match.
+
+-- 7. Numeric Functions
+-- Q111. Round product prices to two decimals.
+-- Q112. Calculate absolute price differences.
+-- Q113. Round order values to whole numbers.
+-- Q114. Calculate percentage discounts.
+-- Q115. Calculate profit margin.
+-- Q116. Calculate CEILING and FLOOR price values.
+-- Q117. Calculate each product's percentage contribution to sales.
+-- Q118. Calculate actual-versus-target differences.
+-- Q119. Create numeric price bands.
+-- Q120. Normalize sales values to a 0-1 range.
+
+-- 8. Date and Time Functions
+-- Q121. Extract year, month, and day from order dates.
+-- Q122. Find orders placed in 2012.
+-- Q123. Find orders placed during a specific month.
+-- Q124. Calculate days between order and ship dates.
+-- Q125. Calculate employee tenure in years.
+-- Q126. Find orders shipped more than 7 days after ordering.
+-- Q127. Calculate month-end dates for order dates.
+-- Q128. Group orders by calendar year.
+-- Q129. Group orders by month.
+-- Q130. Group orders by quarter.
+-- Q131. Find the first and last order date.
+-- Q132. Find customers whose last order was more than one year ago.
+-- Q133. Calculate age of employees at hiring.
+-- Q134. Find products introduced within a date range.
+-- Q135. Calculate order processing time.
+-- Q136. Find the busiest order day of the week.
+-- Q137. Compare weekday versus weekend sales.
+-- Q138. Calculate monthly sales growth using dates.
+-- Q139. Find each customer's first purchase date.
+-- Q140. Find each customer's most recent purchase date.
+
+-- 9. NULL Functions
+-- Q141. Find products with NULL color.
+-- Q142. Find customers with missing optional information.
+-- Q143. Replace NULL values with a label.
+-- Q144. Replace NULL numeric values with zero.
+-- Q145. Compare COALESCE and ISNULL on a practice expression.
+-- Q146. Use NULLIF to avoid division by zero.
+-- Q147. Calculate averages while handling NULLs correctly.
+-- Q148. Identify rows where one of several columns is NULL.
+-- Q149. Identify rows where all selected columns are NULL.
+-- Q150. Calculate sales metrics without allowing NULL to invalidate expressions.
+
+-- 10. CASE Statement
+-- Q151. Categorize products as Low, Medium, or High price.
+-- Q152. Categorize customers by total spending.
+-- Q153. Categorize employees by salary band.
+-- Q154. Create order-value bands.
+-- Q155. Create an order-status classification.
+-- Q156. Flag late shipments.
+-- Q157. Calculate conditional revenue.
+-- Q158. Create a customer activity label.
+-- Q159. Create inventory-risk categories.
+-- Q160. Use CASE inside ORDER BY.
+-- Q161. Use CASE inside GROUP BY.
+-- Q162. Use CASE for conditional aggregation.
+-- Q163. Create multiple mutually exclusive product categories.
+-- Q164. Create a profitability classification.
+-- Q165. Build a customer segment using multiple conditions.
+
+-- 11. Aggregate Functions
+-- Q166. Count all products.
+-- Q167. Count distinct customers.
+-- Q168. Find average product price.
+-- Q169. Find minimum and maximum product price.
+-- Q170. Calculate total sales.
+-- Q171. Calculate total sales by customer.
+-- Q172. Calculate total sales by product.
+-- Q173. Calculate total sales by category.
+-- Q174. Calculate average order value.
+-- Q175. Find customers with more than five orders.
+-- Q176. Find products with total sales above a threshold.
+-- Q177. Find the most expensive product in each category.
+-- Q178. Find the least expensive product in each category.
+-- Q179. Calculate monthly revenue.
+-- Q180. Calculate annual revenue.
+-- Q181. Find the top ten customers by revenue.
+-- Q182. Find the top ten products by quantity sold.
+-- Q183. Calculate average order quantity.
+-- Q184. Find categories with above-average revenue.
+-- Q185. Calculate revenue, cost, and profit by product.
+-- Q186. Calculate each territory's contribution to total sales.
+-- Q187. Find customers whose spending exceeds the overall average.
+-- Q188. Find products whose sales exceed their category average.
+-- Q189. Calculate customer order frequency.
+-- Q190. Calculate repeat-customer percentage.
+
+-- ============================================================
+-- LEVEL 3: JOINS AND SET OPERATORS
+-- ============================================================
+
+-- 12. SQL Joins - Basics
+-- Q191. INNER JOIN customers and orders.
+-- Q192. Join orders and order details.
+-- Q193. Join order details and products.
+-- Q194. Join products and product subcategories.
+-- Q195. Join product subcategories and categories.
+-- Q196. Join employees and departments.
+-- Q197. Join customers and addresses.
+-- Q198. Join addresses and states.
+-- Q199. Join states and countries/regions.
+-- Q200. Join sales orders with salespeople.
+-- Q201. Join three tables to display customer purchases.
+-- Q202. Join four tables to display product sales by category.
+-- Q203. Join orders, customers, and territories.
+-- Q204. Display employee name with department information.
+-- Q205. Display product name with category and subcategory.
+
+-- 13. SQL Joins - Advanced
+-- Q206. Find customers with no orders using LEFT JOIN.
+-- Q207. Find products that have never been sold.
+-- Q208. Find employees without assigned departments.
+-- Q209. Find addresses without associated customers.
+-- Q210. Perform a self join on employees and managers.
+-- Q211. Find employees earning more than their managers.
+-- Q212. Find employees hired before their managers.
+-- Q213. Compare products within the same category using a self join.
+-- Q214. Perform a non-equality join between price bands and products.
+-- Q215. Identify duplicate rows caused by a many-to-many join.
+-- Q216. Prevent row multiplication when joining multiple fact tables.
+-- Q217. Find customers who bought two different products.
+-- Q218. Find customers who bought products from two different categories.
+-- Q219. Find customers who bought both Product A and Product B.
+-- Q220. Find products sold in every territory.
+-- Q221. Find customers who purchased from every product category.
+-- Q222. Find employees managing at least five employees.
+-- Q223. Find pairs of products with similar prices.
+-- Q224. Find products more expensive than every product in another category.
+-- Q225. Find customers whose order count exceeds their salesperson's average.
+-- Q226. Compare two sales periods using joins.
+-- Q227. Find unmatched records between two related tables.
+-- Q228. Join aggregated customer data back to customer details.
+-- Q229. Find customers with purchases but no recent activity.
+-- Q230. Identify orphan-like records using joins.
+-- Q231. Build a complete customer-to-product sales path across multiple tables.
+-- Q232. Compare INNER JOIN, LEFT JOIN, and FULL OUTER JOIN results.
+
+-- 14. Set Operators
+-- Q233. UNION customers from two practice sources.
+-- Q234. UNION ALL two sales datasets.
+-- Q235. INTERSECT customer IDs from two datasets.
+-- Q236. EXCEPT customers in source A but not source B.
+-- Q237. Find products common to two categories.
+-- Q238. Find products sold in one year but not another.
+-- Q239. Compare customer populations between two periods.
+-- Q240. Compare product populations between two sources.
+-- Q241. Reproduce an EXCEPT problem using NOT EXISTS.
+-- Q242. Reproduce an INTERSECT problem using EXISTS.
+-- Q243. Compare UNION with UNION ALL when duplicates exist.
+-- Q244. Determine whether two result sets contain identical rows.
+-- Q245. Combine employee and customer contact datasets with compatible columns.
+
+-- ============================================================
+-- LEVEL 4: WINDOW FUNCTIONS
+-- ============================================================
+
+-- 15. Window Functions Basics
+-- Q246. Display every order with total number of orders.
+-- Q247. Count orders per customer using a window function.
+-- Q248. Calculate average product price without collapsing rows.
+-- Q249. Calculate average salary by department.
+-- Q250. Calculate total customer spending alongside every order.
+-- Q251. Calculate total category sales alongside each product.
+-- Q252. Partition results by territory.
+-- Q253. Partition results by customer.
+-- Q254. Combine PARTITION BY and ORDER BY.
+-- Q255. Explain the difference between GROUP BY and window aggregation using a query.
+
+-- 16. Window Aggregate
+-- Q256. Calculate running sales total.
+-- Q257. Calculate cumulative sales by customer.
+-- Q258. Calculate cumulative sales by year.
+-- Q259. Calculate cumulative sales by month.
+-- Q260. Calculate running quantity sold per product.
+-- Q261. Calculate moving three-month average revenue.
+-- Q262. Calculate moving seven-day sales.
+-- Q263. Calculate each order's percentage of customer revenue.
+-- Q264. Calculate each product's percentage of category revenue.
+-- Q265. Calculate each category's percentage of total revenue.
+-- Q266. Calculate cumulative percentage contribution of products.
+-- Q267. Find the point where cumulative products reach 80% of revenue.
+-- Q268. Calculate running average order value.
+-- Q269. Calculate department salary as a percentage of total company salary.
+-- Q270. Compare window aggregate results with GROUP BY results.
+
+-- 17. Window Ranking
+-- Q271. Rank products by price.
+-- Q272. Rank customers by revenue.
+-- Q273. Rank employees by salary.
+-- Q274. Rank products within each category.
+-- Q275. Rank customers within each territory.
+-- Q276. Find the top three products in every category.
+-- Q277. Find the top five customers in every country.
+-- Q278. Find the second-highest salary in each department.
+-- Q279. Find the third-highest product price in each category.
+-- Q280. Compare ROW_NUMBER, RANK, and DENSE_RANK on tied salaries.
+-- Q281. Assign customers into four spending quartiles using NTILE.
+-- Q282. Assign products into price deciles.
+-- Q283. Find the bottom three products in every category.
+-- Q284. Find top salespeople by territory.
+-- Q285. Find the highest-revenue product for each month.
+-- Q286. Find the highest-spending customer for each year.
+-- Q287. Find products whose rank improved year-over-year.
+-- Q288. Find employees in the top 10% salary band.
+-- Q289. Find customers ranked between 6th and 10th in each territory.
+-- Q290. Solve top-N-per-group using ROW_NUMBER.
+-- Q291. Solve top-N-per-group using RANK.
+-- Q292. Determine when RANK and DENSE_RANK produce different results.
+
+-- 18. Window Value Functions
+-- Q293. Find each customer's previous order date using LAG.
+-- Q294. Find each customer's next order date using LEAD.
+-- Q295. Calculate days between consecutive customer orders.
+-- Q296. Calculate month-over-month revenue change.
+-- Q297. Calculate year-over-year revenue change.
+-- Q298. Find products whose sales increased from the previous month.
+-- Q299. Find the first order date for each customer using FIRST_VALUE.
+-- Q300. Find the first product purchased by each customer.
+-- Q301. Find the highest-value order per customer using a window value function.
+-- Q302. Compare each employee's salary with the previous employee's salary.
+-- Q303. Find the next higher-priced product within each category.
+-- Q304. Calculate the difference between current and previous order value.
+-- Q305. Find customers whose purchase gap is increasing.
+-- Q306. Find the first and last transaction within each customer partition.
+-- Q307. Compare FIRST_VALUE and MIN for first transaction analysis.
+-- Q308. Compare LAST_VALUE behavior with different window frames.
+-- Q309. Identify consecutive periods with increasing revenue.
+-- Q310. Identify customers with a purchase after a long inactivity period.
+
+-- ============================================================
+-- LEVEL 5: ADVANCED SQL TECHNIQUES
+-- ============================================================
+
+-- 19. Subqueries
+-- Q311. Find products above average price.
+-- Q312. Find customers above average spending.
+-- Q313. Find employees above average salary.
+-- Q314. Find products above their category average.
+-- Q315. Find customers with at least one order.
+-- Q316. Find customers with no orders using NOT EXISTS.
+-- Q317. Find products never sold using NOT EXISTS.
+-- Q318. Find orders containing a particular product using EXISTS.
+-- Q319. Find customers who bought all products in a selected set.
+-- Q320. Find the highest-priced product using a scalar subquery.
+-- Q321. Find the second-highest salary using a subquery.
+-- Q322. Find the third-highest product price.
+-- Q323. Use a subquery in FROM to calculate customer revenue.
+-- Q324. Use a correlated subquery to calculate customer order counts.
+-- Q325. Use a correlated subquery to find products above category average.
+-- Q326. Find employees earning more than their department average.
+-- Q327. Find customers whose latest order exceeds their average order value.
+-- Q328. Find products whose total sales exceed average product sales.
+-- Q329. Compare IN versus EXISTS for a customer lookup.
+-- Q330. Compare NOT IN versus NOT EXISTS in the presence of NULL.
+-- Q331. Rewrite a subquery solution using a JOIN.
+-- Q332. Rewrite a subquery solution using a CTE.
+-- Q333. Determine when a correlated subquery can become expensive.
+-- Q334. Find customers whose number of orders exceeds the average number of orders.
+-- Q335. Find categories whose highest-priced product exceeds the overall average price.
+
+-- 20. Common Table Expressions (CTE)
+-- Q336. Create a CTE for customer revenue.
+-- Q337. Create a CTE for product revenue.
+-- Q338. Create a CTE for monthly sales.
+-- Q339. Chain two CTEs to rank customers.
+-- Q340. Chain three CTEs to identify top customers.
+-- Q341. Create a CTE for category-level averages.
+-- Q342. Find products above category average using a CTE.
+-- Q343. Create a CTE for first purchase dates.
+-- Q344. Calculate customer lifetime value using CTEs.
+-- Q345. Use multiple CTEs to calculate monthly growth.
+-- Q346. Use a CTE to identify repeat customers.
+-- Q347. Use a CTE to calculate product profitability.
+-- Q348. Use a CTE to identify top 10% customers.
+-- Q349. Use a recursive CTE for employee hierarchy.
+-- Q350. Display every employee's management path using recursion.
+-- Q351. Calculate hierarchy depth using a recursive CTE.
+-- Q352. Compare a CTE solution with a derived-table solution.
+-- Q353. Compare a CTE solution with a temp-table solution.
+-- Q354. Determine whether referencing a CTE multiple times improves performance.
+-- Q355. Build a multi-stage sales analysis using five CTEs.
+
+-- 21. Views
+-- Q356. Create a view containing customer order summaries.
+-- Q357. Create a view containing product sales summaries.
+-- Q358. Create a view containing employee-manager relationships.
+-- Q359. Create a view for monthly sales.
+-- Q360. Query a view using filters.
+-- Q361. Query a view using aggregation.
+-- Q362. Create a view joining customers, orders, and territories.
+-- Q363. Create a view containing product profitability.
+-- Q364. Determine whether a view can be updated.
+-- Q365. Compare a view with a CTE.
+-- Q366. Compare a view with a stored procedure.
+-- Q367. Identify situations where a view improves maintainability.
+-- Q368. Identify situations where a view can hurt performance or flexibility.
+
+-- 22. CTAS / SELECT INTO
+-- Q369. Create a table from a SELECT query.
+-- Q370. Create a customer-summary table from aggregated sales.
+-- Q371. Create a monthly-sales table.
+-- Q372. Create a high-value-customer table.
+-- Q373. Create a product-profitability table.
+-- Q374. Create a staging table from filtered orders.
+-- Q375. Compare SELECT INTO with explicitly creating a table first.
+-- Q376. Determine which constraints/indexes are preserved when materializing a result.
+-- Q377. Create a reusable analytical snapshot table.
+-- Q378. Refresh a snapshot table using a safe process.
+
+-- 23. Temporary Tables
+-- Q379. Create a local temporary table for customer sales.
+-- Q380. Populate a temporary table using SELECT INTO.
+-- Q381. Populate a temporary table using INSERT SELECT.
+-- Q382. Add an index to a temporary table.
+-- Q383. Use a temporary table across multiple queries.
+-- Q384. Store intermediate monthly revenue in a temp table.
+-- Q385. Compare a temp table with a table variable.
+-- Q386. Compare a temp table with a CTE.
+-- Q387. Use multiple temp tables in a multi-step analysis.
+-- Q388. Determine when temporary tables are preferable to CTEs.
+
+-- 24. Compare Advanced Techniques
+-- Q389. Solve "above average product" using subquery, CTE, and window function.
+-- Q390. Solve top-N-per-category using subquery, CTE, and window function.
+-- Q391. Solve customer revenue analysis using CTE and temp table.
+-- Q392. Compare EXISTS and JOIN for finding customers with orders.
+-- Q393. Compare NOT EXISTS, NOT IN, LEFT JOIN, and EXCEPT for anti-joins.
+-- Q394. Compare GROUP BY and window functions for customer totals.
+-- Q395. Compare a derived table and a CTE.
+-- Q396. Compare a CTE and a temporary table for repeated intermediate results.
+-- Q397. Compare a view and a CTE for reusable logic.
+-- Q398. Compare a view and stored procedure for parameterized reporting.
+-- Q399. Determine the best approach for a five-step analytical query.
+-- Q400. Optimize a query that uses several nested subqueries by rewriting it.
+
+-- ============================================================
+-- LEVEL 6: DATABASE PROGRAMMING
+-- ============================================================
+
+-- 25. Stored Procedures
+-- Q401. Create a procedure that returns all orders for a customer.
+-- Q402. Create a procedure accepting customer ID as a parameter.
+-- Q403. Create a procedure returning sales between two dates.
+-- Q404. Create a procedure returning top N customers.
+-- Q405. Create a procedure returning top N products.
+-- Q406. Create a procedure returning customer lifetime value.
+-- Q407. Create a procedure with optional parameters.
+-- Q408. Create a procedure with multiple parameters.
+-- Q409. Create a procedure containing IF/ELSE logic.
+-- Q410. Create a procedure using a temporary table.
+-- Q411. Create a procedure that inserts a new practice customer.
+-- Q412. Create a procedure that updates a product price.
+-- Q413. Create a procedure that returns an output parameter.
+-- Q414. Add TRY/CATCH error handling to a procedure.
+-- Q415. Add transaction handling to a stored procedure.
+-- Q416. Create a procedure that validates input before DML.
+-- Q417. Create a procedure for monthly sales reporting.
+-- Q418. Create a procedure for customer segmentation.
+-- Q419. Create a procedure that returns different result sets based on a parameter.
+-- Q420. Compare a stored procedure with a parameterized view/query.
+
+-- 26. Triggers
+-- Q421. Create an AFTER INSERT trigger on a practice table.
+-- Q422. Create an AFTER UPDATE trigger.
+-- Q423. Create an AFTER DELETE trigger.
+-- Q424. Create an audit table for salary changes.
+-- Q425. Create a trigger recording employee salary changes.
+-- Q426. Create a trigger recording deleted practice records.
+-- Q427. Create a trigger that prevents invalid data.
+-- Q428. Create a trigger that updates an audit timestamp.
+-- Q429. Handle multi-row INSERT operations correctly inside a trigger.
+-- Q430. Handle multi-row UPDATE operations correctly inside a trigger.
+-- Q431. Compare a trigger with a CHECK constraint.
+-- Q432. Compare a trigger with a stored procedure.
+-- Q433. Identify scenarios where triggers should be avoided.
+-- Q434. Analyze recursive/nested trigger risks.
+-- Q435. Design an audit-trigger strategy for a transactional table.
+
+-- ============================================================
+-- LEVEL 7: INDEXES AND PERFORMANCE
+-- ============================================================
+
+-- 27. Indexes
+-- Q436. Create a nonclustered index on CustomerID.
+-- Q437. Create an index on OrderDate.
+-- Q438. Create a composite index on CustomerID and OrderDate.
+-- Q439. Create a unique index on a practice email column.
+-- Q440. Identify columns likely to benefit from indexing.
+-- Q441. Compare query performance before and after indexing.
+-- Q442. Use an execution plan to identify a table scan.
+-- Q443. Use an execution plan to identify an index seek.
+-- Q444. Determine whether an index is being used.
+-- Q445. Design a covering index for a customer-order query.
+-- Q446. Design an index for a date-range sales query.
+-- Q447. Determine the best column order for a composite index.
+-- Q448. Identify an index that is unlikely to be useful because of low selectivity.
+-- Q449. Analyze the cost of maintaining too many indexes.
+-- Q450. Determine whether a query is SARGable and rewrite it if necessary.
+-- Q451. Analyze why applying a function to an indexed date column can prevent an efficient seek.
+-- Q452. Compare a single-column index with a composite index.
+-- Q453. Identify duplicate or overlapping indexes.
+-- Q454. Design an indexing strategy for a high-volume sales table.
+-- Q455. Analyze an execution plan and recommend query/index changes.
+
+-- ============================================================
+-- LEVEL 8: INTERVIEW-LEVEL INTEGRATED CASE STUDIES
+-- ============================================================
+
+-- Q456. Find the top three products by revenue in every category for every year.
+-- Q457. Find customers whose spending increased for three consecutive years.
+-- Q458. Find customers whose latest order value is greater than their lifetime average.
+-- Q459. Find the first product purchased by every customer.
+-- Q460. Find customers who purchased from at least five different categories.
+-- Q461. Find customers who purchased from every available product category.
+-- Q462. Find the longest gap between consecutive orders for every customer.
+-- Q463. Find customers who became inactive for at least six months and then returned.
+-- Q464. Find the month with the highest revenue growth for every year.
+-- Q465. Find products responsible for 80% of category revenue.
+-- Q466. Find the top 10% of customers responsible for total revenue.
+-- Q467. Find products whose revenue increased every year.
+-- Q468. Find products whose ranking improved every year.
+-- Q469. Find the salesperson with the highest year-over-year growth in each territory.
+-- Q470. Find territories whose revenue growth exceeded company-wide revenue growth.
+-- Q471. Find customers who bought a product again after at least 90 days.
+-- Q472. Find customers whose average order value is above their territory average.
+-- Q473. Find employees earning more than their department average and company average.
+-- Q474. Find managers whose teams generate above-average revenue.
+-- Q475. Find the most profitable product in every category after accounting for cost.
+-- Q476. Find categories whose revenue is concentrated among fewer than five products.
+-- Q477. Identify customers whose purchases are concentrated in one category.
+-- Q478. Find the percentage of customers who became repeat customers each year.
+-- Q479. Calculate customer retention between consecutive years.
+-- Q480. Identify the best-performing month for each product category.
+-- Q481. Find products with high sales volume but low profit margin.
+-- Q482. Find products with low sales volume but high profit margin.
+-- Q483. Build a customer RFM-style segmentation using SQL.
+-- Q484. Build an ABC product classification based on cumulative revenue.
+-- Q485. Find the median order value by year.
+-- Q486. Find the percentile rank of customers by revenue.
+-- Q487. Find the top customer in every territory while handling ties.
+-- Q488. Find consecutive monthly revenue increases.
+-- Q489. Identify months where revenue exceeded the previous three-month average.
+-- Q490. Find customers whose purchase frequency is increasing over time.
+-- Q491. Find the most common product pair purchased by customers.
+-- Q492. Find customers who purchased Product A but never Product B.
+-- Q493. Find customers who purchased Product A and later purchased Product B.
+-- Q494. Find the average number of days between a customer's first and second purchase.
+-- Q495. Find the percentage of customers making exactly one purchase.
+-- Q496. Find products whose sales are above their category's 90th percentile.
+-- Q497. Identify salespeople with consistently above-territory-average performance.
+-- Q498. Find the top category for each customer.
+-- Q499. Find the category with the highest year-over-year growth.
+-- Q500. Build an end-to-end sales-performance report using joins, CTEs, window functions, CASE, aggregation, and date functions.
+
+-- ============================================================
+-- END OF ADVENTUREWORKS SQL PRACTICE ROADMAP
+-- ============================================================
